@@ -21,11 +21,11 @@ Preprocessing (nie dotyczy OOB i UOB):
 
 Dane:
 * stream-learn
+  * pojedynczy dryft
+  * typy dryftu: nagly, inkrementalny, gradualny
+  * IR: 5%, 10%, 15%, 20%
+  * szum: 1%, 5%, 10%
 * rzeczywiste
-* pojedynczy dryft
-* typy dryftu: nagly, inkrementalny, gradualny
-* IR: 5%, 10%, 15%, 20%
-* ln: 1%, 5%, 10% 
 
 Metryki prequential:
 * g-mean
