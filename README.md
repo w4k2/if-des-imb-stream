@@ -20,8 +20,12 @@ Preprocessing (nie dotyczy OOB i UOB):
 * CNN
 
 Dane:
-* stream-learn (1 dryft)
+* stream-learn
 * rzeczywiste
+* pojedynczy dryft
+* typy dryftu: nagly, inkrementalny, gradualny
+* IR: 5%, 10%, 15%, 20%
+* ln: 1%, 5%, 10% 
 
 Metryki prequential:
 * g-mean
@@ -34,7 +38,7 @@ Okno:
 * 250
 * interwal 100
 
-Prezetancja:
+Prezentancja:
 * poziom niezbalansowania
 * typ dryftu
 * przykladowe srednie przebiegi
