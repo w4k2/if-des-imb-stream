@@ -20,7 +20,7 @@ Preprocessing (nie dotyczy OOB i UOB):
 * CNN
 
 Dane:
-* stream-learn
+* stream-learn (1 dryft)
 * rzeczywiste
 
 Metryki prequential:
@@ -30,9 +30,14 @@ Metryki prequential:
 * precision
 * recall
 
-Ustalona dlugosc okna
+Okno:
+* 250
+* interwal 100
 
 Prezetancja:
 * poziom niezbalansowania
 * typ dryftu
+* przykladowe srednie przebiegi
+* radary
+* analiza statystyczna rankingów
 * realne osobno
