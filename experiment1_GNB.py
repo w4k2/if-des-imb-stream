@@ -16,7 +16,7 @@ from strlearn.metrics import (
 )
 import sys
 from sklearn.base import clone
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import auc
 
 if len(sys.argv) != 2:
     print("PODAJ RS")
@@ -33,17 +33,11 @@ print(len(streams))
 
 oob = OOB()
 uob = UOB()
-osea = SEA(base_estimator=GaussianNB() ,oversampled=True)
-od = 100
-mdet_bac = MDET(optimization_depth=od, metric=balanced_accuracy_score)
-mdet_f = MDET(optimization_depth=od, metric=f1_score)
 
-mdet_bac.set_base_clf(GaussianNB())
-mdet_f.set_base_clf(GaussianNB())
 oob.set_base_clf(SampleWeightedMetaEstimator(GaussianNB()))
 uob.set_base_clf(SampleWeightedMetaEstimator(GaussianNB()))
 
-clfs = (osea, oob, uob, mdet_bac, mdet_f)
+clfs = (oob, uob)
 
 # Define worker
 def worker(i, stream_n):
@@ -59,7 +53,7 @@ def worker(i, stream_n):
         precision,
         recall,
         specificity,
-        accuracy_score
+        auc
     ))
     eval.process(
         stream,

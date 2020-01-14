@@ -4,8 +4,8 @@ from strlearn.streams import StreamGenerator
 
 def toystreams(random_state):
     # Variables
-    distributions = [[0.95, 0.05], [0.9, 0.1]]
-    label_noises = [0.01, 0.05]
+    distributions = [[0.95, 0.05], [0.90, 0.10]]
+    label_noises = [0.01]
     incremental = [False]
     ccs = [5, None]
     n_drifts = 1
@@ -36,17 +36,11 @@ def toystreams(random_state):
 
 def streams(random_state):
     # Variables
-    distributions = [[0.95, 0.05], [0.9, 0.1], [0.85, 0.15], [0.80, 0.20]]
+    distributions = [[0.95, 0.05], [0.90, 0.10], [0.85, 0.15], [0.80, 0.20]]
     label_noises = [
         0.01,
         0.05,
-        0.1,
-        0.2,
-        (0.01, 0.2),
-        (0.01, 0.1),
-        (0.01, 0.01),
-        (0.1, 0.01),
-        (0.2, 0.01),
+        0.10,
     ]
     incremental = [False, True]
     ccs = [5, None]
@@ -65,6 +59,8 @@ def streams(random_state):
                         y_flip=flip_y,
                         concept_sigmoid_spacing=spacing,
                         n_drifts=n_drifts,
+                        chunk_size=250,
+                        n_chunks=200
                     )
                     if spacing == None and drift_type == True:
                         pass

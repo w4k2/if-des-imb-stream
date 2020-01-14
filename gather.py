@@ -3,12 +3,11 @@ import numpy as np
 
 # Variables
 clfs = ["GNB", "HT", "MLP"]
-methods = ["OSEA", "OOB", "UOB", "MDET_BAC", "MDET_FSCORE"]
+methods = ["OOB", "UOB"]
 random_states = [1410]
 distributions = [[0.95, 0.05], [0.9, 0.1]]
 label_noises = [
-    0.01,
-    0.05
+    0.01
 ]
 # css = [5, None]
 # incremental = [False, True]
@@ -16,7 +15,7 @@ label_noises = [
 chuj = [(5, False), (None, False)]
 
 n_chunks = 19
-metrics = ["bac", "geometric_mean_score", "f_score", "precision", "recall", "specificity", "accuracy"]
+metrics = ["BAC", "geometric_mean_score", "f_score", "precision", "recall", "specificity", "AUC"]
 
 scores = np.zeros(
     (
