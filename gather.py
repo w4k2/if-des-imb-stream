@@ -2,9 +2,9 @@ from strlearn.streams import StreamGenerator
 import numpy as np
 
 # Variables
-clfs = ["GNB", "HT", "MLP"]
-methods = ["OOB", "UOB"]
-random_states = [1410]
+clfs = ["GNB"]
+methods = ["OOB", "UOB", "SEA", "SSEA"]
+random_states = [1994]
 distributions = [[0.95, 0.05], [0.9, 0.1]]
 label_noises = [
     0.01
@@ -14,8 +14,8 @@ label_noises = [
 
 chuj = [(5, False), (None, False)]
 
-n_chunks = 19
-metrics = ["BAC", "geometric_mean_score", "f_score", "precision", "recall", "specificity", "AUC"]
+n_chunks = 199
+metrics = ["BAC", "geometric_mean_score", "f_score", "precision", "recall", "specificity"]
 
 scores = np.zeros(
     (
@@ -50,14 +50,18 @@ for i, clf in enumerate(clfs):
                         y_flip=flip_y,
                         concept_sigmoid_spacing=spacing,
                         n_drifts=1,
-                        n_chunks=20,
+                        n_chunks=200,
                         chunk_size=250,
+                        n_features = 10,
+                        n_informative= 10 // 2,
+                        n_redundant= 10 // 2,
+                        n_repeated = 0,
                     )
                     if spacing == None and drift_type == True:
                         pass
                     else:
                         results = np.load(
-                            "results2/experiment1_%s/%s.npy" % (clf, stream)
+                            "results/experiment1_%s/%s.npy" % (clf, stream)
                         )
                         scores[i, j, k, l, m] = results
 scores = np.mean(scores, axis=1)

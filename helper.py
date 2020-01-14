@@ -23,8 +23,12 @@ def toystreams(random_state):
                         y_flip=flip_y,
                         concept_sigmoid_spacing=spacing,
                         n_drifts=n_drifts,
-                        n_chunks=20,
+                        n_chunks=200,
                         chunk_size=250,
+                        n_features = 10,
+                        n_informative= 10 // 2,
+                        n_redundant= 10 // 2,
+                        n_repeated = 0,
                     )
                     if spacing == None and drift_type == True:
                         pass

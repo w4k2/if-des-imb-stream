@@ -6,6 +6,8 @@ from sklearn.ensemble import BaseEnsemble
 from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
 import numpy as np
 from imblearn.over_sampling import RandomOverSampler
+from imblearn.over_sampling import BorderlineSMOTE, SVMSMOTE
+from deslib.des import KNORAU
 
 
 class SEA(ClassifierMixin, BaseEnsemble):
@@ -49,12 +51,13 @@ class SEA(ClassifierMixin, BaseEnsemble):
     [0.935      0.93569212 0.93540766 0.93569212 0.93467337]]
     """
 
-    def __init__(self, base_estimator=None, n_estimators=3, metric=accuracy_score, oversampled=False):
+    def __init__(self, base_estimator=None, n_estimators=10, metric=accuracy_score, oversampled=False, des=False):
         """Initialization."""
         self.base_estimator = base_estimator
         self.n_estimators = n_estimators
         self.metric = metric
         self.oversampled = oversampled
+        self.des = des
 
     def fit(self, X, y):
         """Fitting."""
@@ -74,9 +77,14 @@ class SEA(ClassifierMixin, BaseEnsemble):
 
         if self.oversampled == False:
             self.X_, self.y_ = X, y
+            self.dsel_X_, self.dsel_y_ =  self.X_, self.y_
         else:
-            ros = RandomOverSampler(random_state=42)
-            self.X_, self.y_ = ros.fit_resample(X, y)
+            ros = SVMSMOTE(random_state=42)
+            try:
+                self.X_, self.y_ = ros.fit_resample(X, y)
+            except:
+                pass
+            self.dsel_X_, self.dsel_y_ =  self.X_, self.y_
 
         # Check classes
         self.classes_ = classes
@@ -88,9 +96,10 @@ class SEA(ClassifierMixin, BaseEnsemble):
 
         # Remove the worst when ensemble becomes too large
         if len(self.ensemble_) > self.n_estimators:
-            del self.ensemble_[
-                np.argmin([self.metric(y, clf.predict(X)) for clf in self.ensemble_])
-            ]
+            # del self.ensemble_[
+            #     np.argmin([self.metric(y, clf.predict(X)) for clf in self.ensemble_])
+            # ]
+            del self.ensemble_[0]
         return self
 
     def ensemble_support_matrix(self, X):
@@ -118,9 +127,14 @@ class SEA(ClassifierMixin, BaseEnsemble):
         if X.shape[1] != self.X_.shape[1]:
             raise ValueError("number of features does not match")
 
-        esm = self.ensemble_support_matrix(X)
-        average_support = np.mean(esm, axis=0)
-        prediction = np.argmax(average_support, axis=1)
+        if self.des == False:
+            esm = self.ensemble_support_matrix(X)
+            average_support = np.mean(esm, axis=0)
+            prediction = np.argmax(average_support, axis=1)
+        else:
+            des = KNORAU(pool_classifiers=self.ensemble_, random_state=42)
+            des.fit(self.dsel_X_, self.dsel_y_)
+            prediction = des.predict(X)
 
         # Return prediction
         return self.classes_[prediction]

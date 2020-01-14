@@ -84,8 +84,10 @@ class OOB(BaseEstimator, ClassifierMixin):
 
         for w, base_model in enumerate(self.ensemble_):
             if np.sum(self.weights[w]) != 0:
-                base_model.partial_fit(self.X_, self.y_, self.classes_, sample_weight=self.weights[w])
-
+                try:
+                    base_model.partial_fit(self.X_, self.y_, self.classes_, sample_weight=self.weights[w])
+                except:
+                    pass
         return self
 
     def ensemble_support_matrix(self, X):

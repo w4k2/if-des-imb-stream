@@ -8,16 +8,15 @@ from scipy.signal import medfilt
 import pandas as pd
 from math import pi
 
-methods = ["OSEA", "OOB", "UOB", "MDET_BAC", "MDET_FSCORE"]
+methods = ["OOB", "UOB", "SEA", "SSEA"]
 label_noises = [
-    "0.01",
-    "0.05"
+    "0.01"
 ]
 ln = [a.replace('.','-') for a in label_noises]
 distributions = ["0.05", "0.10"]
 dist = [a.replace('.','-') for a in distributions]
 drifts = ["gradual", "sudden"]
-metrics = ["bac", "gmean", "f1", "precision", "recall", "specificity", "accuracy"]
+metrics = ["bac", "gmean", "f1", "precision", "recall", "specificity"]
 clfs = ["GNB"]
 
 scores = np.load("scores.npy")
@@ -74,7 +73,7 @@ def plot_radars(methods, metrics, table, classifier_name, parameter_name, what):
     ax.set_rlabel_position(0)
     plt.yticks(
         [0.15,0.20,0.25,0.30,0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.8, 0.85, 0.90, 0.95, 1.00],
-        ["15%","20%","25%","30%","35%", "40%", "45%", "50%", "55%", "60%", "65%", "70%", "75%", "80%", "85%", "90%", "95%", "100%"],
+        ["0.15","0.20","0.25","0.30","0.35", "0.40", "0.45", "0.50", "0.55", "0.60", "0.65", "0.70", "0.75", "0.80", "0.85", "0.90", "0.95", "1.00"],
         fontsize=6,
     )
     plt.ylim(0.15, 1.0)
