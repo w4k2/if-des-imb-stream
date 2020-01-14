@@ -1,7 +1,7 @@
-Rozwiniecie pomyslu z ICDM, byc moze do Knowledge-Based Systems
+Rozwiniecie pomyslu z ICDM, Springer Machine Learning Journal special issue
 
 3 klasyfikatory proste:
-* Naive Bayes
+* Gaussian Naive Bayes
 * MLP
 * Hoeffding Tree
 
@@ -27,21 +27,19 @@ Dane:
   * szum: 1%, 5%, 10%
 * rzeczywiste
 
-Metryki prequential:
-* g-mean
+Metryki Test-Then-Train (chunk 250 instancji):
+* BAC
 * AUC
-* F1-meassure
+* g-mean
+* F1-measure
 * precision
 * recall
-
-Okno:
-* 250
-* interwal 100
+* specificity
 
 Prezentancja:
 * poziom niezbalansowania
 * typ dryftu
-* przykladowe srednie przebiegi
+* przykladowe srednie przebiegi (z zaznaczeniem momentu dryftu)
 * radary
 * analiza statystyczna rankingów
 * realne osobno
