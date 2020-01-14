@@ -6,7 +6,7 @@ import multiprocessing
 from csm import OOB, UOB, SampleWeightedMetaEstimator, Dumb, MDET, SEA
 from strlearn.evaluators import TestThenTrain
 from sklearn.naive_bayes import GaussianNB
-from metrics import (
+from strlearn.metrics import (
     balanced_accuracy_score,
     f1_score,
     geometric_mean_score_1,
@@ -70,7 +70,7 @@ def worker(i, stream_n):
 
     results = eval.scores
 
-    np.save("results2/experiment1_GNB/%s" % stream, results)
+    np.save("results/experiment1_GNB/%s" % stream, results)
 
 
 jobs = []

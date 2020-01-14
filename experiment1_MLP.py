@@ -5,9 +5,15 @@ from tqdm import tqdm
 import multiprocessing
 from csm import OOB, UOB, SampleWeightedMetaEstimator, Dumb, MDET, SEA
 from strlearn.evaluators import TestThenTrain
-from sklearn.naive_bayes import GaussianNB
 from sklearn.neural_network import MLPClassifier
-from metrics import balanced_accuracy_score, f1_score, geometric_mean_score_1, precision, recall, specificity
+from strlearn.metrics import (
+    balanced_accuracy_score,
+    f1_score,
+    geometric_mean_score_1,
+    precision,
+    recall,
+    specificity
+) precision, recall, specificity
 import sys
 from sklearn.base import clone
 from sklearn.metrics import accuracy_score
@@ -62,7 +68,7 @@ def worker(i, stream_n):
 
     print("Done stream %i/%i" % (i + 1, len(streams)))
     results = eval.scores
-    np.save("results2/experiment1_MLP/%s" % stream, results)
+    np.save("results/experiment1_MLP/%s" % stream, results)
 
 
 for i, stream_n in enumerate(streams):
