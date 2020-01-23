@@ -25,10 +25,11 @@ def toystreams(random_state):
                         n_drifts=n_drifts,
                         n_chunks=200,
                         chunk_size=250,
-                        n_features = 10,
-                        n_informative= 10 // 2,
-                        n_redundant= 10 // 2,
-                        n_repeated = 0,
+                        n_clusters_per_class=1,
+                        n_features=8,
+                        n_informative=8,
+                        n_redundant=0,
+                        n_repeated=0,
                     )
                     if spacing == None and drift_type == True:
                         pass
@@ -43,8 +44,8 @@ def streams(random_state):
     distributions = [[0.95, 0.05], [0.90, 0.10], [0.85, 0.15], [0.80, 0.20]]
     label_noises = [
         0.01,
+        0.03,
         0.05,
-        0.10,
     ]
     incremental = [False, True]
     ccs = [5, None]
@@ -64,7 +65,12 @@ def streams(random_state):
                         concept_sigmoid_spacing=spacing,
                         n_drifts=n_drifts,
                         chunk_size=250,
-                        n_chunks=200
+                        n_chunks=200,
+                        n_clusters_per_class=1,
+                        n_features=8,
+                        n_informative=8,
+                        n_redundant=0,
+                        n_repeated=0,
                     )
                     if spacing == None and drift_type == True:
                         pass

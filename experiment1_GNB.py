@@ -16,6 +16,8 @@ from strlearn.metrics import (
 )
 import sys
 from sklearn.base import clone
+from sklearn.tree import DecisionTreeClassifier
+from skmultiflow.trees import HoeffdingTree
 
 if len(sys.argv) != 2:
     print("PODAJ RS")
@@ -26,22 +28,17 @@ else:
 print(random_state)
 
 # Select streams and methods
-streams = h.toystreams(random_state)
+streams = h.streams(random_state)
 
 print(len(streams))
 
-# sb = StratifiedBagging()
-# ssb = StratifiedBagging(oversampler = "B2", des="KNORAU")
+sea = SEA(base_estimator=StratifiedBagging(base_estimator=GaussianNB(), random_state=42))
+knorau1 = SEA(base_estimator=StratifiedBagging(base_estimator=GaussianNB(), random_state=42), des="KNORAU1")
+knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=GaussianNB(), random_state=42), des="KNORAU2")
+knorae1 = SEA(base_estimator=StratifiedBagging(base_estimator=GaussianNB(), random_state=42), des="KNORAE1")
+knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=GaussianNB(), random_state=42), des="KNORAE2")
 
-oob = OOB(ensemble_size=5)
-uob = UOB(ensemble_size=5)
-sea = SEA(base_estimator=GaussianNB())
-ssea = SEA(base_estimator=GaussianNB(), oversampled=True, des=True)
-
-oob.set_base_clf(SampleWeightedMetaEstimator(GaussianNB()))
-uob.set_base_clf(SampleWeightedMetaEstimator(GaussianNB()))
-
-clfs = (oob, uob, sea, ssea)
+clfs = (sea, knorau1, knorau2, knorae1, knorae2)
 
 # Define worker
 def worker(i, stream_n):

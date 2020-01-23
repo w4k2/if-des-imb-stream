@@ -3,7 +3,7 @@ import numpy as np
 
 # Variables
 clfs = ["GNB"]
-methods = ["OOB", "UOB", "SEA", "SSEA"]
+methods = ["SEA", "KNORAU1", "KNORAU2", "KNORAE1", "KNORAE2"]
 random_states = [1994]
 distributions = [[0.95, 0.05], [0.9, 0.1]]
 label_noises = [
@@ -52,9 +52,10 @@ for i, clf in enumerate(clfs):
                         n_drifts=1,
                         n_chunks=200,
                         chunk_size=250,
-                        n_features = 10,
-                        n_informative= 10 // 2,
-                        n_redundant= 10 // 2,
+                        n_clusters_per_class = 1,
+                        n_features = 8,
+                        n_informative= 8,
+                        n_redundant= 0,
                         n_repeated = 0,
                     )
                     if spacing == None and drift_type == True:

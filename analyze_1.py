@@ -8,7 +8,7 @@ from scipy.signal import medfilt
 import pandas as pd
 from math import pi
 
-methods = ["OOB", "UOB", "SEA", "SSEA"]
+methods = ["SEA", "KNORAU1", "KNORAU2", "KNORAE1", "KNORAE2"]
 label_noises = [
     "0.01"
 ]
@@ -76,7 +76,7 @@ def plot_radars(methods, metrics, table, classifier_name, parameter_name, what):
         ["0.15","0.20","0.25","0.30","0.35", "0.40", "0.45", "0.50", "0.55", "0.60", "0.65", "0.70", "0.75", "0.80", "0.85", "0.90", "0.95", "1.00"],
         fontsize=6,
     )
-    plt.ylim(0.15, 1.0)
+    plt.ylim(0.00, 1.0)
 
     # print(df)
     # exit()

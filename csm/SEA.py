@@ -7,7 +7,8 @@ from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
 import numpy as np
 from imblearn.over_sampling import RandomOverSampler
 from imblearn.over_sampling import BorderlineSMOTE, SVMSMOTE
-from deslib.des import KNORAU
+from deslib.des import KNORAU, KNORAE
+from strlearn.metrics import balanced_accuracy_score
 
 
 class SEA(ClassifierMixin, BaseEnsemble):
@@ -51,7 +52,7 @@ class SEA(ClassifierMixin, BaseEnsemble):
     [0.935      0.93569212 0.93540766 0.93569212 0.93467337]]
     """
 
-    def __init__(self, base_estimator=None, n_estimators=10, metric=accuracy_score, oversampled=False, des=False):
+    def __init__(self, base_estimator=None, n_estimators=5, metric=balanced_accuracy_score, oversampled=False, des="None"):
         """Initialization."""
         self.base_estimator = base_estimator
         self.n_estimators = n_estimators
@@ -69,22 +70,22 @@ class SEA(ClassifierMixin, BaseEnsemble):
         X, y = check_X_y(X, y)
         if not hasattr(self, "ensemble_"):
             self.ensemble_ = []
+            self.ensemble_base_ = []
 
         # Check feature consistency
         if hasattr(self, "X_"):
             if self.X_.shape[1] != X.shape[1]:
                 raise ValueError("number of features does not match")
 
+        self.X_, self.y_ = X, y
         if self.oversampled == False:
-            self.X_, self.y_ = X, y
             self.dsel_X_, self.dsel_y_ =  self.X_, self.y_
         else:
             ros = SVMSMOTE(random_state=42)
             try:
-                self.X_, self.y_ = ros.fit_resample(X, y)
+                self.dsel_X_, self.dsel_y_ = ros.fit_resample(X, y)
             except:
                 pass
-            self.dsel_X_, self.dsel_y_ =  self.X_, self.y_
 
         # Check classes
         self.classes_ = classes
@@ -92,19 +93,30 @@ class SEA(ClassifierMixin, BaseEnsemble):
             self.classes_, _ = np.unique(y, return_inverse=True)
 
         # Append new estimator
-        self.ensemble_.append(clone(self.base_estimator).fit(self.X_, self.y_))
+        self.candidate_ = clone(self.base_estimator).fit(self.X_, self.y_)
+        self.ensemble_.append(self.candidate_)
+        self.ensemble_base_.extend(self.candidate_.estimators_)
 
         # Remove the worst when ensemble becomes too large
         if len(self.ensemble_) > self.n_estimators:
-            # del self.ensemble_[
-            #     np.argmin([self.metric(y, clf.predict(X)) for clf in self.ensemble_])
-            # ]
-            del self.ensemble_[0]
+            self.prune_index_ = np.argmin(
+                [self.metric(y, clf.predict(X)) for clf in self.ensemble_])
+            # print(self.prune_index_)
+            del self.ensemble_[self.prune_index_]
+            a = (((self.prune_index_ + 1) * 10) - 10)
+            b = (((self.prune_index_ + 1) * 10))
+            del self.ensemble_base_[a:b]
+            # print(a, ":", b)
+
         return self
+
 
     def ensemble_support_matrix(self, X):
         """Ensemble support matrix."""
         return np.array([member_clf.predict_proba(X) for member_clf in self.ensemble_])
+
+# 0.3, 0.7
+
 
     def predict(self, X):
         """
@@ -127,12 +139,24 @@ class SEA(ClassifierMixin, BaseEnsemble):
         if X.shape[1] != self.X_.shape[1]:
             raise ValueError("number of features does not match")
 
-        if self.des == False:
+        if self.des == "None":
             esm = self.ensemble_support_matrix(X)
             average_support = np.mean(esm, axis=0)
             prediction = np.argmax(average_support, axis=1)
-        else:
+        elif self.des == "KNORAU1":
             des = KNORAU(pool_classifiers=self.ensemble_, random_state=42)
+            des.fit(self.dsel_X_, self.dsel_y_)
+            prediction = des.predict(X)
+        elif self.des == "KNORAU2":
+            des = KNORAU(pool_classifiers=self.ensemble_base_, random_state=42)
+            des.fit(self.dsel_X_, self.dsel_y_)
+            prediction = des.predict(X)
+        elif self.des == "KNORAE1":
+            des = KNORAE(pool_classifiers=self.ensemble_, random_state=42)
+            des.fit(self.dsel_X_, self.dsel_y_)
+            prediction = des.predict(X)
+        elif self.des == "KNORAE2":
+            des = KNORAE(pool_classifiers=self.ensemble_base_, random_state=42)
             des.fit(self.dsel_X_, self.dsel_y_)
             prediction = des.predict(X)
 
