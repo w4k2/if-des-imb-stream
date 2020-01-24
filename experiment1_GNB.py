@@ -28,7 +28,7 @@ else:
 print(random_state)
 
 # Select streams and methods
-streams = h.streams(random_state)
+streams = h.toystreams(random_state)
 
 print(len(streams))
 

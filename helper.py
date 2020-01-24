@@ -5,8 +5,12 @@ from strlearn.streams import StreamGenerator
 def toystreams(random_state):
     # Variables
     distributions = [[0.95, 0.05], [0.90, 0.10]]
-    label_noises = [0.01]
-    incremental = [False]
+    label_noises = [
+        0.01,
+        0.03,
+        0.05,
+    ]
+    incremental = [False, True]
     ccs = [5, None]
     n_drifts = 1
 
@@ -23,8 +27,8 @@ def toystreams(random_state):
                         y_flip=flip_y,
                         concept_sigmoid_spacing=spacing,
                         n_drifts=n_drifts,
-                        n_chunks=200,
                         chunk_size=250,
+                        n_chunks=200,
                         n_clusters_per_class=1,
                         n_features=8,
                         n_informative=8,
