@@ -83,13 +83,13 @@ class StratifiedBagging(BaseEnsemble, ClassifierMixin):
         # Return the classifier
         return self
 
-    def partial_fit(self, X, y, classes_ = None, sample_weight=None):
-        if not hasattr(self, "_fitted"):
-            # print("ROBIE COS")
-            self.fit(X, y)
-            self._fitted=True
-        for estimator in self.estimators_:
-            estimator.partial_fit(X, y, classes=classes_, sample_weight=sample_weight)
+    # def partial_fit(self, X, y, classes_ = None, sample_weight=None):
+    #     if not hasattr(self, "_fitted"):
+    #         # print("ROBIE COS")
+    #         self.fit(X, y)
+    #         self._fitted=True
+    #     for estimator in self.estimators_:
+    #         estimator.partial_fit(X, y, classes=classes_, sample_weight=sample_weight)
 
 
     def ensemble_support_matrix(self, X):
