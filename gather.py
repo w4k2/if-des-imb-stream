@@ -4,15 +4,17 @@ import numpy as np
 # Variables
 clfs = ["GNB"]
 methods = ["SEA", "KNORAU1", "KNORAU2", "KNORAE1", "KNORAE2"]
-random_states = [1994]
+random_states = [1994, 1410]
 distributions = [[0.95, 0.05], [0.9, 0.1]]
 label_noises = [
-    0.01
+    0.01,
+    0.03,
+    0.05,
 ]
 # css = [5, None]
 # incremental = [False, True]
 
-chuj = [(5, False), (None, False)]
+chuj = [(5, False), (5, True), (None, False)]
 
 n_chunks = 199
 metrics = ["BAC", "geometric_mean_score", "f_score", "precision", "recall", "specificity"]

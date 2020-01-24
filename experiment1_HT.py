@@ -3,8 +3,9 @@ import numpy as np
 import helper as h
 from tqdm import tqdm
 import multiprocessing
-from csm import OOB, UOB, SampleWeightedMetaEstimator, Dumb, MDET, SEA
+from csm import OOB, UOB, SampleWeightedMetaEstimator, Dumb, MDET, SEA, StratifiedBagging
 from strlearn.evaluators import TestThenTrain
+from sklearn.naive_bayes import GaussianNB
 from strlearn.metrics import (
     balanced_accuracy_score,
     f1_score,
@@ -13,10 +14,10 @@ from strlearn.metrics import (
     recall,
     specificity
 )
-from skmultiflow.trees import HoeffdingTree
 import sys
 from sklearn.base import clone
-from sklearn.metrics import accuracy_score
+from sklearn.tree import DecisionTreeClassifier
+from skmultiflow.trees import HoeffdingTree
 
 if len(sys.argv) != 2:
     print("PODAJ RS")
@@ -31,23 +32,13 @@ streams = h.toystreams(random_state)
 
 print(len(streams))
 
-oob = OOB()
-uob = UOB()
-osea = SEA(base_estimator=HoeffdingTree(split_criterion="hellinger") ,oversampled=True)
-od = 100
-mdet_bac = MDET(optimization_depth=od, metric=balanced_accuracy_score)
-mdet_f = MDET(optimization_depth=od, metric=f1_score)
+sea = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(), random_state=42))
+knorau1 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(), random_state=42), des="KNORAU1")
+knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(), random_state=42), des="KNORAU2")
+knorae1 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(), random_state=42), des="KNORAE1")
+knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(), random_state=42), des="KNORAE2")
 
-mdet_bac.set_base_clf(HoeffdingTree(split_criterion="hellinger"))
-mdet_f.set_base_clf(HoeffdingTree(split_criterion="hellinger"))
-oob.set_base_clf(
-    SampleWeightedMetaEstimator(HoeffdingTree(split_criterion="hellinger"))
-)
-uob.set_base_clf(
-    SampleWeightedMetaEstimator(HoeffdingTree(split_criterion="hellinger"))
-)
-
-clfs = (osea, oob, uob, mdet_bac, mdet_f)
+clfs = (sea, knorau1, knorau2, knorae1, knorae2)
 
 # Define worker
 def worker(i, stream_n):
@@ -62,8 +53,7 @@ def worker(i, stream_n):
         f1_score,
         precision,
         recall,
-        specificity,
-        accuracy_score
+        specificity
     ))
     eval.process(
         stream,
