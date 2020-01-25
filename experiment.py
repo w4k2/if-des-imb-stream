@@ -16,6 +16,8 @@ from strlearn.metrics import (
 )
 import sys
 from sklearn.base import clone
+from sklearn.tree import DecisionTreeClassifier
+from skmultiflow.trees import HoeffdingTree
 from sklearn.neural_network import MLPClassifier
 
 if len(sys.argv) != 2:
@@ -31,13 +33,10 @@ streams = h.toystreams(random_state)
 
 print(len(streams))
 
-sea = SEA(base_estimator=StratifiedBagging(base_estimator=MLPClassifier(random_state=42), random_state=42))
-knorau1 = SEA(base_estimator=StratifiedBagging(base_estimator=MLPClassifier(random_state=42), random_state=42), des="KNORAU1")
-knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=MLPClassifier(random_state=42), random_state=42), des="KNORAU2")
-knorae1 = SEA(base_estimator=StratifiedBagging(base_estimator=MLPClassifier(random_state=42), random_state=42), des="KNORAE1")
-knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=MLPClassifier(random_state=42), random_state=42), des="KNORAE2")
+gnb = SEA(base_estimator=StratifiedBagging(base_estimator=GaussianNB(), random_state=42))
+ht = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(), random_state=42))
 
-clfs = (sea, knorau1, knorau2, knorae1, knorae2)
+clfs = (gnb, ht)
 
 # Define worker
 def worker(i, stream_n):
@@ -63,7 +62,7 @@ def worker(i, stream_n):
 
     results = eval.scores
 
-    np.save("results/experiment1_MLP/%s" % stream, results)
+    np.save("results/experiment_HT/%s" % stream, results)
 
 
 jobs = []

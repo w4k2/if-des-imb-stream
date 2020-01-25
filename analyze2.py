@@ -18,20 +18,18 @@ ls = ["--", "-", ":", "-", ":"]
 lw = [1, 1, 8, 1, 4]
 lw = [1, 1, 1, 1, 1]
 
-methods = ["SEA", "KNORAU1", "KNORAU2", "KNORAE1", "KNORAE2"]
+methods = ["SEA", "KNORAU1"]
 label_noises = [
     "0.01",
-    "0.03",
-    "0.05"
 ]
 ln = [a.replace('.','-') for a in label_noises]
-distributions = ["0.05", "0.10"]
+distributions = ["0.05"]
 dist = [a.replace('.','-') for a in distributions]
 drifts = ["gradual", "incremental", "sudden"]
 metrics = ["bac", "gmean", "f1", "precision", "recall", "specificity"]
-clfs = ["GNB", "HT", "MLP"]
+clfs = ["HT"]
 
-scores = np.load("scores.npy")
+scores = np.load("scores2.npy")
 
 # print(scores.shape)
 
@@ -63,7 +61,7 @@ def plot_runs(
     )
 
     plt.grid(ls=":", c=(0.7, 0.7, 0.7))
-    plt.xlim(0, 200)
+    plt.xlim(0, 25)
     axx = plt.gca()
     axx.spines["right"].set_visible(False)
     axx.spines["top"].set_visible(False)
