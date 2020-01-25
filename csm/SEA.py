@@ -5,8 +5,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.ensemble import BaseEnsemble
 from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
 import numpy as np
-from imblearn.over_sampling import RandomOverSampler
-from imblearn.over_sampling import BorderlineSMOTE, SVMSMOTE
+from imblearn.over_sampling import RandomOverSampler, BorderlineSMOTE
 from deslib.des import KNORAU, KNORAE
 from strlearn.metrics import balanced_accuracy_score
 
@@ -52,7 +51,7 @@ class SEA(ClassifierMixin, BaseEnsemble):
     [0.935      0.93569212 0.93540766 0.93569212 0.93467337]]
     """
 
-    def __init__(self, base_estimator=None, n_estimators=5, metric=balanced_accuracy_score, oversampled=False, des="None"):
+    def __init__(self, base_estimator=None, n_estimators=5, metric=balanced_accuracy_score, oversampled="None", des="None"):
         """Initialization."""
         self.base_estimator = base_estimator
         self.n_estimators = n_estimators
@@ -78,12 +77,18 @@ class SEA(ClassifierMixin, BaseEnsemble):
                 raise ValueError("number of features does not match")
 
         self.X_, self.y_ = X, y
-        if self.oversampled == False:
+        if self.oversampled == "None":
             self.dsel_X_, self.dsel_y_ =  self.X_, self.y_
-        else:
-            ros = SVMSMOTE(random_state=42)
+        elif self.oversampled == "ROS":
+            ros = RandomOverSampler(random_state=42)
             try:
-                self.dsel_X_, self.dsel_y_ = ros.fit_resample(X, y)
+                self.dsel_X_, self.dsel_y_ = ros.fit_resample(self.X_, self.y_)
+            except:
+                pass
+        elif self.oversampled == "B2":
+            b2 = BorderlineSMOTE(random_state=42, kind='borderline-2')
+            try:
+                self.dsel_X_, self.dsel_y_ = b2.fit_resample(self.X_, self.y_)
             except:
                 pass
 

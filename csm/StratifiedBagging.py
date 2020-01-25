@@ -11,7 +11,7 @@ from sklearn import neighbors
 from sklearn.metrics import f1_score, balanced_accuracy_score
 from imblearn.metrics import  geometric_mean_score
 import numpy as np
-from imblearn.over_sampling import SMOTE, SVMSMOTE, BorderlineSMOTE, ADASYN, RandomOverSampler
+from imblearn.over_sampling import BorderlineSMOTE, RandomOverSampler
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.utils.multiclass import unique_labels
 import sys, os
@@ -71,10 +71,16 @@ class StratifiedBagging(BaseEnsemble, ClassifierMixin):
 
             unique, counts = np.unique(train_y, return_counts=True)
 
-            if self.oversampler == "B2":
-                ros = BorderlineSMOTE(random_state=self.random_state+(n*2), kind='borderline-2')
+            if self.oversampler == "ROS":
+                ros = RandomOverSampler(random_state=self.random_state+(n*2))
                 try:
                     train_X, train_y = ros.fit_resample(train_X, train_y)
+                except:
+                    pass
+            elif self.oversampler == "B2":
+                b2 = BorderlineSMOTE(random_state=self.random_state+(n*2), kind='borderline-2')
+                try:
+                    train_X, train_y = b2.fit_resample(train_X, train_y)
                 except:
                     pass
 
