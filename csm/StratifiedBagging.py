@@ -12,6 +12,7 @@ from sklearn.metrics import f1_score, balanced_accuracy_score
 from imblearn.metrics import  geometric_mean_score
 import numpy as np
 from imblearn.over_sampling import BorderlineSMOTE, RandomOverSampler
+from imblearn.under_sampling import RandomUnderSampler, CondensedNearestNeighbour
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.utils.multiclass import unique_labels
 import sys, os
@@ -81,6 +82,18 @@ class StratifiedBagging(BaseEnsemble, ClassifierMixin):
                 b2 = BorderlineSMOTE(random_state=self.random_state+(n*2), kind='borderline-2')
                 try:
                     train_X, train_y = b2.fit_resample(train_X, train_y)
+                except:
+                    pass
+            elif self.oversampler == "RUS":
+                rus = RandomUnderSampler(random_state=self.random_state+(n*2))
+                try:
+                    train_X, train_y = rus.fit_resample(train_X, train_y)
+                except:
+                    pass
+            elif self.oversampler == "CNN":
+                cnn = CondensedNearestNeighbour(random_state=self.random_state+(n*2))
+                try:
+                    train_X, train_y = cnn.fit_resample(train_X, train_y)
                 except:
                     pass
 

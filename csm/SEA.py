@@ -6,6 +6,7 @@ from sklearn.ensemble import BaseEnsemble
 from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
 import numpy as np
 from imblearn.over_sampling import RandomOverSampler, BorderlineSMOTE
+from imblearn.under_sampling import RandomUnderSampler, CondensedNearestNeighbour
 from deslib.des import KNORAU, KNORAE
 from strlearn.metrics import balanced_accuracy_score
 
@@ -89,6 +90,18 @@ class SEA(ClassifierMixin, BaseEnsemble):
             b2 = BorderlineSMOTE(random_state=42, kind='borderline-2')
             try:
                 self.dsel_X_, self.dsel_y_ = b2.fit_resample(self.X_, self.y_)
+            except:
+                pass
+        elif self.oversampled == "RUS":
+            rus = RandomUnderSampler(random_state=42)
+            try:
+                self.dsel_X_, self.dsel_y_ = rus.fit_resample(self.X_, self.y_)
+            except:
+                pass
+        elif self.oversampled == "CNN":
+            cnn = CondensedNearestNeighbour(random_state=42)
+            try:
+                self.dsel_X_, self.dsel_y_ = cnn.fit_resample(self.X_, self.y_)
             except:
                 pass
 

@@ -4,7 +4,7 @@ Rozwiniecie pomyslu z ICDM, Springer Machine Learning Journal special issue
 
 3 klasyfikatory proste:
 * Gaussian Naive Bayes
-* MLP
+* MLP (?)
 * Hoeffding Tree
 
 7 metod kombinacji (poziom meta):
