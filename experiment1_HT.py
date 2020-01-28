@@ -32,11 +32,17 @@ streams = h.toystreams(random_state)
 
 print(len(streams))
 
-sea = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(), random_state=42))
-knorau1 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(), random_state=42), des="KNORAU1")
-knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(), random_state=42), des="KNORAU2")
-knorae1 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(), random_state=42), des="KNORAE1")
-knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(), random_state=42), des="KNORAE2")
+sea = SEA(base_estimator=StratifiedBagging(
+    base_estimator=HoeffdingTree(split_criterion='hellinger'), random_state=42))
+knorau1 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
+    split_criterion='hellinger'), random_state=42), des="KNORAU1")
+knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
+    split_criterion='hellinger'), random_state=42), des="KNORAU2")
+knorae1 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
+    split_criterion='hellinger'), random_state=42), des="KNORAE1")
+knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
+    split_criterion='hellinger'), random_state=42), des="KNORAE2")
+
 
 clfs = (sea, knorau1, knorau2, knorae1, knorae2)
 

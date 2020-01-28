@@ -28,7 +28,7 @@ distributions = ["0.05", "0.10"]
 dist = [a.replace('.','-') for a in distributions]
 drifts = ["gradual", "incremental", "sudden"]
 metrics = ["bac", "gmean", "f1", "precision", "recall", "specificity"]
-clfs = ["GNB"]
+clfs = ["GNB", "HT"]
 
 scores = np.load("scores_21.npy")
 
@@ -43,7 +43,7 @@ def plot_runs(
         zip(selected_scores, methods, mean_scores)
     ):
         label += "\n{0:.3f}".format(mean)
-        val = gaussian_filter1d(value, sigma=1, mode="nearest")
+        val = gaussian_filter1d(value, sigma=3, mode="nearest")
 
         # plt.plot(value, label=label, c=colors[z], ls=ls[z])
 
@@ -57,7 +57,7 @@ def plot_runs(
         fancybox=False,
         shadow=True,
         ncol=3,
-        fontsize=8,
+        fontsize=6,
         frameon=False,
     )
 
@@ -68,7 +68,7 @@ def plot_runs(
     axx.spines["top"].set_visible(False)
 
     plt.title(
-        "%s.\n%s" % (dependency[k][:-1], metrics[i]),
+        "%s\n%s" % (dependency[k][:], metrics[i]),
         fontfamily="serif",
         y=1.04,
         fontsize=8,
