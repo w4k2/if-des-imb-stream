@@ -7,5 +7,6 @@ from .SampleWeightedMetaEstimator import SampleWeightedMetaEstimator
 from .MDET import MDET
 from .SEA import SEA
 from .StratifiedBagging import StratifiedBagging
+from .OB import OnlineBagging
 
-__all__ = ["MDE", "Dumb", "StreamGenerator", "OOB", "UOB", "SampleWeightedMetaEstimator", "MDET", "SEA"]
+__all__ = ["MDE", "Dumb", "StreamGenerator", "OOB", "UOB", "SampleWeightedMetaEstimator", "MDET", "SEA", "OnlineBagging"]
