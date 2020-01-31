@@ -60,16 +60,19 @@ def worker(i, stream_n):
         recall,
         specificity
     ))
-    eval.process(
-        stream,
-        cclfs
-    )
+    if i == 23:
+        eval.process(
+            stream,
+            cclfs
+        )
 
-    print("Done stream %i/%i" % (i + 1, len(streams)))
+        print("Done stream %i/%i" % (i + 1, len(streams)))
 
-    results = eval.scores
+        results = eval.scores
 
-    np.save("results/experiment3_GNB/%s" % stream, results)
+        np.save("results/experiment3_GNB/%s" % stream, results)
+    else:
+        print("Done stream %i %i" % (i+1, len(streams)))
 
 
 jobs = []
