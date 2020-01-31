@@ -28,7 +28,7 @@ ln = [a.replace('.','-') for a in label_noises]
 distributions = ["0.05", "0.10"]
 dist = [a.replace('.','-') for a in distributions]
 drifts = ["gradual", "incremental", "sudden"]
-metrics = ["bac", "gmean", "f1", "precision", "recall", "specificity"]
+metrics = ["Balanced accuracy", "G-mean", "f1 score", "precision", "recall", "specificity"]
 clfs = ["GNB", "HT"]
 
 scores = np.load("scores.npy")
@@ -44,7 +44,7 @@ def plot_runs(
         zip(selected_scores, methods, mean_scores)
     ):
         label += "\n{0:.3f}".format(mean)
-        val = gaussian_filter1d(value, sigma=1, mode="nearest")
+        val = gaussian_filter1d(value, sigma=3, mode="nearest")
 
         # plt.plot(value, label=label, c=colors[z], ls=ls[z])
 
@@ -58,7 +58,7 @@ def plot_runs(
         fancybox=False,
         shadow=True,
         ncol=3,
-        fontsize=8,
+        fontsize=6,
         frameon=False,
     )
 
@@ -69,7 +69,7 @@ def plot_runs(
     axx.spines["top"].set_visible(False)
 
     plt.title(
-        "%s.\n%s" % (dependency[k][:-1], metrics[i]),
+        "%s %s\n%s" % (clfs[j], dependency[k][:], metrics[i]),
         fontfamily="serif",
         y=1.04,
         fontsize=8,
@@ -80,7 +80,7 @@ def plot_runs(
     plt.ylabel("score", fontfamily="serif", fontsize=8)
     plt.xlabel("chunks", fontfamily="serif", fontsize=8)
     plt.tight_layout()
-    plt.savefig("plots/experiment1/runs/%s/%s_%s_%s" % (what, clfs[j], metrics[i], dependency[k]), bbox_inches='tight', dpi=250)
+    plt.savefig("plots/experiment1/runs/%s/1_%s_%s_%s.eps" % (what, clfs[j], metrics[i], dependency[k]), bbox_inches='tight', dpi=250)
     plt.close()
 
 def plot_radars(
@@ -132,18 +132,18 @@ def plot_radars(
     # Add legend
     plt.legend(
         loc="lower center",
-        ncol=5,
+        ncol=3,
         columnspacing=1,
         frameon=False,
-        bbox_to_anchor=(0.5, -0.2),
-        fontsize=8,
+        bbox_to_anchor=(0.5, -0.3),
+        fontsize=6,
     )
 
     # Add a grid
     plt.grid(ls=":", c=(0.7, 0.7, 0.7))
 
     # Add a title
-    plt.title("%s" % (parameter_name), size=11, y=1.08, fontfamily="serif")
+    plt.title("%s %s" % (clfs[j], parameter_name), size=8, y=1.08, fontfamily="serif")
     plt.tight_layout()
 
     # Draw labels
@@ -194,7 +194,7 @@ def plot_radars(
     ax.set_xticklabels([])
     ax.set_yticklabels([])
 
-    plt.savefig("plots/experiment1/radars/%s/%s_%s.png" % (what, classifier_name, parameter_name), bbox_inches='tight', dpi=250)
+    plt.savefig("plots/experiment1/radars/%s/1_%s_%s.eps" % (what, classifier_name, parameter_name), bbox_inches='tight', dpi=250)
     plt.close()
 
 for j, clf in enumerate(clfs):
@@ -285,7 +285,7 @@ for j, clf in enumerate(clfs):
 
         plot_radars(methods, metrics, table, clf, drift, "drift_type")
 
-    for i, distribution in enumerate(distributions):
+    for i, distribution in enumerate(dist):
         print("\n---\n--- %s\n---\n" % (distribution))
         # KLASYFIKATOR, CHUJ, DIST, LABELNOISE, METHOD, CHUNK, METRYKA
         sub_scores = scores[j, :, i, :, :, :, :]
@@ -308,7 +308,7 @@ for j, clf in enumerate(clfs):
 
         plot_radars(methods, metrics, table, clf, distribution, "distributions")
 
-    for i, label_noise in enumerate(label_noises):
+    for i, label_noise in enumerate(ln):
         print("\n---\n--- %s\n---\n" % (label_noise))
         # KLASYFIKATOR, CHUJ, DIST, LABELNOISE, METHOD, CHUNK, METRYKA
         sub_scores = scores[j, :, :, i, :, :, :]

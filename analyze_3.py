@@ -1,6 +1,3 @@
-"""
-Analiza zależności od szumu
-"""
 import numpy as np
 from tabulate import tabulate
 import matplotlib.pyplot as plt
@@ -13,24 +10,24 @@ from matplotlib import rcParams
 
 # Set plot params
 rcParams["font.family"] = "monospace"
-colors = [(0, 0, 0), (0, 0, 0.9), (0.9, 0, 0), (0, 0, 0), (0, 0, 0.9), (0.9, 0, 0)]
-ls = ["--", "--", "--", "-", "-", "-"]
-lw = [1, 1, 1, 1, 1, 1]
+colors = [(0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0.9), (0, 0, 0.9), (0.9, 0, 0), (0.9, 0, 0)]
+ls = ["-", "--", ":", "-", "--", "-", "--"]
+lw = [1, 1, 1, 1, 1, 1, 1]
 
-methods = ["NON-KNORAU2", "RUS-KNORAU2", "CNN-KNORAU2", "NON-KNORAE2", "RUS-KNORAE2", "CNN-KNORAE2"]
+methods = ["OB", "OOB", "UOB", "ROS-KNORAU2", "CNN-KNORAU2", "ROS-KNORAE2", "CNN-KNORAE2"]
 label_noises = [
     "0.01",
     "0.03",
     "0.05"
 ]
 ln = [a.replace('.','-') for a in label_noises]
-distributions = ["0.05", "0.10"]
+distributions = ["0.05", "0.10", "0.15", "0.20"]
 dist = [a.replace('.','-') for a in distributions]
 drifts = ["gradual", "incremental", "sudden"]
 metrics = ["Balanced accuracy", "G-mean", "f1 score", "precision", "recall", "specificity"]
-clfs = ["GNB", "HT"]
+clfs = ["GNB"]
 
-scores = np.load("scores_22.npy")
+scores = np.load("scores_3.npy")
 
 # print(scores.shape)
 
@@ -79,7 +76,7 @@ def plot_runs(
     plt.ylabel("score", fontfamily="serif", fontsize=8)
     plt.xlabel("chunks", fontfamily="serif", fontsize=8)
     plt.tight_layout()
-    plt.savefig("plots/experiment22/runs/%s/22_%s_%s_%s.eps" % (what, clfs[j], metrics[i], dependency[k]), bbox_inches='tight', dpi=250)
+    plt.savefig("plots/experiment3/runs/%s/3_%s_%s_%s.eps" % (what, clfs[j], metrics[i], dependency[k]), bbox_inches='tight', dpi=250)
     plt.close()
 
 def plot_radars(
@@ -193,7 +190,7 @@ def plot_radars(
     ax.set_xticklabels([])
     ax.set_yticklabels([])
 
-    plt.savefig("plots/experiment22/radars/%s/22_%s_%s.eps" % (what, classifier_name, parameter_name), bbox_inches='tight', dpi=250)
+    plt.savefig("plots/experiment3/radars/%s/3_%s_%s.eps" % (what, classifier_name, parameter_name), bbox_inches='tight', dpi=250)
     plt.close()
 
 for j, clf in enumerate(clfs):
