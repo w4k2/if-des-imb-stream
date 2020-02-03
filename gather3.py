@@ -2,7 +2,7 @@ from strlearn.streams import StreamGenerator
 import numpy as np
 
 # Variables
-clfs = ["GNB"]
+clfs = ["GNB", "HT"]
 methods = ["OB", "OOB", "UOB", "ROS-KNORAU2", "CNN-KNORAU2", "ROS-KNORAE2", "CNN-KNORAE2"]
 random_states = [1994, 1410]
 distributions = [[0.95, 0.05], [0.9, 0.1], [0.85, 0.15], [0.8, 0.2]]

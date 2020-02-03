@@ -25,7 +25,7 @@ distributions = ["0.05", "0.10", "0.15", "0.20"]
 dist = [a.replace('.','-') for a in distributions]
 drifts = ["gradual", "incremental", "sudden"]
 metrics = ["Balanced accuracy", "G-mean", "f1 score", "precision", "recall", "specificity"]
-clfs = ["GNB"]
+clfs = ["GNB", "HT"]
 
 scores = np.load("scores_3.npy")
 
