@@ -85,25 +85,25 @@ class SEA(ClassifierMixin, BaseEnsemble):
             try:
                 self.dsel_X_, self.dsel_y_ = ros.fit_resample(self.X_, self.y_)
             except:
-                pass
+                self.dsel_X_, self.dsel_y_ = self.X_, self.y_
         elif self.oversampled == "B2":
             b2 = BorderlineSMOTE(random_state=42, kind='borderline-2')
             try:
                 self.dsel_X_, self.dsel_y_ = b2.fit_resample(self.X_, self.y_)
             except:
-                pass
+                self.dsel_X_, self.dsel_y_ = self.X_, self.y_
         elif self.oversampled == "RUS":
             rus = RandomUnderSampler(random_state=42)
             try:
                 self.dsel_X_, self.dsel_y_ = rus.fit_resample(self.X_, self.y_)
             except:
-                pass
+                self.dsel_X_, self.dsel_y_ = self.X_, self.y_
         elif self.oversampled == "CNN":
             cnn = CondensedNearestNeighbour(random_state=42)
             try:
                 self.dsel_X_, self.dsel_y_ = cnn.fit_resample(self.X_, self.y_)
             except:
-                pass
+                self.dsel_X_, self.dsel_y_ = self.X_, self.y_
 
         # Check classes
         self.classes_ = classes

@@ -1,6 +1,11 @@
 import numpy as np
-from strlearn.streams import StreamGenerator
+from strlearn.streams import StreamGenerator, ARFFParser
 
+def realstreams():
+    return {
+    "elecNormNew": ARFFParser("streams/elecNormNew.arff", n_chunks=4),
+    "IntelLabSensors-1vsAll": ARFFParser("streams/IntelLabSensors-1vsAll.arff", n_chunks=4),
+    }
 
 def toystreams(random_state):
     # Variables

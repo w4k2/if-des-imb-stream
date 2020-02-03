@@ -19,17 +19,8 @@ from sklearn.base import clone
 from sklearn.tree import DecisionTreeClassifier
 from skmultiflow.trees import HoeffdingTree
 
-if len(sys.argv) != 2:
-    print("PODAJ RS")
-    exit()
-else:
-    random_state = int(sys.argv[1])
-
-print(random_state)
-
 # Select streams and methods
-streams = h.streams(random_state)
-
+streams = h.realstreams()
 print(len(streams))
 
 ob = OnlineBagging(n_estimators=20, base_estimator=GaussianNB())
@@ -48,6 +39,8 @@ clfs = (ob, oob, uob, ros_knorau2, cnn_knorau2, ros_knorae2, cnn_knorae2)
 # Define worker
 def worker(i, stream_n):
     stream = streams[stream_n]
+    key = list(streams.keys())[i]
+
     cclfs = [clone(clf) for clf in clfs]
 
     print("Starting stream %i/%i" % (i + 1, len(streams)))
@@ -69,7 +62,7 @@ def worker(i, stream_n):
 
     results = eval.scores
 
-    np.save("results/experiment3_GNB/%s" % stream, results)
+    np.save("results/experiment4_GNB/%s" % key, results)
 
 
 jobs = []
