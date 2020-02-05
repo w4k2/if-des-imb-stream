@@ -33,17 +33,17 @@ streams = h.toystreams(random_state)
 
 print(len(streams))
 
-none_knorau1 = SEA(base_estimator=StratifiedBagging(base_estimator=NeighborsClassifier(
+none_knorau1 = SEA(base_estimator=StratifiedBagging(base_estimator=KNeighborsClassifier(
     weights='distance'), random_state=42, oversampler="None"), oversampled="None", des="KNORAU1")
-ros_knorau1 = SEA(base_estimator=StratifiedBagging(base_estimator=NeighborsClassifier(
+ros_knorau1 = SEA(base_estimator=StratifiedBagging(base_estimator=KNeighborsClassifier(
     weights='distance'), random_state=42, oversampler="ROS"), oversampled="ROS", des="KNORAU1")
-b2_knorau1 = SEA(base_estimator=StratifiedBagging(base_estimator=NeighborsClassifier(
+b2_knorau1 = SEA(base_estimator=StratifiedBagging(base_estimator=KNeighborsClassifier(
     weights='distance'), random_state=42, oversampler="B2"), oversampled="B2", des="KNORAU1")
-none_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=NeighborsClassifier(
+none_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=KNeighborsClassifier(
     weights='distance'), random_state=42, oversampler="None"), oversampled="None", des="KNORAE2")
-ros_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=NeighborsClassifier(
+ros_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=KNeighborsClassifier(
     weights='distance'), random_state=42, oversampler="ROS"), oversampled="ROS", des="KNORAE2")
-b2_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=NeighborsClassifier(
+b2_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=KNeighborsClassifier(
     weights='distance'), random_state=42, oversampler = "B2"), oversampled="B2" ,des="KNORAE2")
 
 clfs = (none_knorau1, ros_knorau1, b2_knorau1, none_knorae2, ros_knorae2, b2_knorae2)
