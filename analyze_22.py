@@ -17,7 +17,12 @@ colors = [(0, 0, 0), (0, 0, 0.9), (0.9, 0, 0), (0, 0, 0), (0, 0, 0.9), (0.9, 0, 
 ls = ["--", "--", "--", "-", "-", "-"]
 lw = [1, 1, 1, 1, 1, 1]
 
-methods = ["NON-KNORAU2", "RUS-KNORAU2", "CNN-KNORAU2", "NON-KNORAE2", "RUS-KNORAE2", "CNN-KNORAE2"]
+methods = [
+["NON-KNORAU2", "RUS-KNORAU2", "CNN-KNORAU2", "NON-KNORAE2", "RUS-KNORAE2", "CNN-KNORAE2"],
+["NON-KNORAU2", "RUS-KNORAU2", "CNN-KNORAU2", "NON-KNORAE2", "RUS-KNORAE2", "CNN-KNORAE2"],
+["NON-KNORAU1", "RUS-KNORAU1", "CNN-KNORAU1", "NON-KNORAE2", "RUS-KNORAE2", "CNN-KNORAE2"],
+["NON-KNORAU1", "RUS-KNORAU1", "CNN-KNORAU1", "NON-KNORAE1", "RUS-KNORAE1", "CNN-KNORAE1"]
+]
 label_noises = [
     "0.01",
     "0.03",
@@ -28,7 +33,7 @@ distributions = ["0.05", "0.10"]
 dist = [a.replace('.','-') for a in distributions]
 drifts = ["gradual", "incremental", "sudden"]
 metrics = ["Balanced accuracy", "G-mean", "f1 score", "precision", "recall", "specificity"]
-clfs = ["GNB", "HT", "SVM", "KNN"]
+clfs = ["GNB", "HT", "KNN", "SVM"]
 
 scores = np.load("scores_22.npy")
 
@@ -37,7 +42,7 @@ scores = np.load("scores_22.npy")
 def plot_runs(
     clfs, metrics, selected_scores, methods, mean_scores, dependency, what
 ):
-    fig = plt.figure(figsize=(4, 4))
+    fig = plt.figure(figsize=(4.5, 3))
     ax = plt.axes()
     for z, (value, label, mean) in enumerate(
         zip(selected_scores, methods, mean_scores)
@@ -73,11 +78,11 @@ def plot_runs(
         y=1.04,
         fontsize=8,
     )
-    plt.ylim(0.0, 1.0)
+    plt.ylim(0.0, 0.8)
     plt.xticks(fontfamily="serif")
     plt.yticks(fontfamily="serif")
-    plt.ylabel("score", fontfamily="serif", fontsize=8)
-    plt.xlabel("chunks", fontfamily="serif", fontsize=8)
+    plt.ylabel("score", fontfamily="serif", fontsize=6)
+    plt.xlabel("chunks", fontfamily="serif", fontsize=6)
     plt.tight_layout()
     plt.savefig("plots/experiment22/runs/%s/22_%s_%s_%s.eps" % (what, clfs[j], metrics[i], dependency[k]), bbox_inches='tight', dpi=250)
     plt.close()
@@ -134,7 +139,7 @@ def plot_radars(
         ncol=3,
         columnspacing=1,
         frameon=False,
-        bbox_to_anchor=(0.5, -0.3),
+        bbox_to_anchor=(0.5, -0.25),
         fontsize=6,
     )
 
@@ -149,7 +154,7 @@ def plot_radars(
     a = np.linspace(0, 1, 6)
     plt.yticks(a[1:], ["%.1f" % f for f in a[1:]], fontsize=6, rotation=90)
     plt.ylim(0.0, 1.0)
-    plt.gcf().set_size_inches(4, 4)
+    plt.gcf().set_size_inches(4, 3.5)
     plt.gcf().canvas.draw()
     angles = np.rad2deg(angles)
 
@@ -209,14 +214,14 @@ for j, clf in enumerate(clfs):
         reduced_scores = np.mean(sub_scores, axis=0)
         reduced_scores = np.mean(reduced_scores, axis=0)
         table = []
-        header = ["LN"] + methods
+        header = ["LN"] + methods[j]
         for k, label_noise in enumerate(ln):
             # LABELNOISE, METHOD, CHUNK
             selected_scores = reduced_scores[k]
             mean_scores = np.mean(selected_scores, axis=1)
             table.append([label_noise] + ["%.3f" % score for score in mean_scores])
 
-            plot_runs(clfs, metrics, selected_scores, methods, mean_scores, ln, "label_noise")
+            plot_runs(clfs, metrics, selected_scores, methods[j], mean_scores, ln, "label_noise")
 
         print(tabulate(table, headers=header))
         print("")
@@ -226,14 +231,14 @@ for j, clf in enumerate(clfs):
         reduced_scores = np.mean(sub_scores, axis=0)
         reduced_scores = np.mean(reduced_scores, axis=1)
         table = []
-        header = ["Dist"] + methods
+        header = ["Dist"] + methods[j]
         for k, distribution in enumerate(dist):
             # LABELNOISE, METHOD, CHUNK
             selected_scores = reduced_scores[k]
             mean_scores = np.mean(selected_scores, axis=1)
             table.append([distribution] + ["%.3f" % score for score in mean_scores])
 
-            plot_runs(clfs, metrics, selected_scores, methods, mean_scores, dist, "distributions")
+            plot_runs(clfs, metrics, selected_scores, methods[j], mean_scores, dist, "distributions")
 
         # print(table)
         print(tabulate(table, headers=header))
@@ -244,14 +249,14 @@ for j, clf in enumerate(clfs):
         reduced_scores = np.mean(sub_scores, axis=1)
         reduced_scores = np.mean(reduced_scores, axis=1)
         table = []
-        header = ["Drift"] + methods
+        header = ["Drift"] + methods[j]
         for k, drift in enumerate(drifts):
             # LABELNOISE, METHOD, CHUNK
             selected_scores = reduced_scores[k]
             mean_scores = np.mean(selected_scores, axis=1)
             table.append([drift] + ["%.3f" % score for score in mean_scores])
 
-            plot_runs(clfs, metrics, selected_scores, methods, mean_scores, drifts, "drift_type")
+            plot_runs(clfs, metrics, selected_scores, methods[j], mean_scores, drifts, "drift_type")
 
         # print(table)
         print(tabulate(table, headers=header))
@@ -271,7 +276,7 @@ for j, clf in enumerate(clfs):
         reduced_scores = np.mean(sub_scores, axis=0)
         reduced_scores = np.mean(reduced_scores, axis=0)
         table = []
-        header = ["Metric"] + methods
+        header = ["Metric"] + methods[j]
         for k, metric in enumerate(metrics):
             # METHOD, CHUNK, Metryka
             selected_scores = reduced_scores[:,:,k]
@@ -282,7 +287,7 @@ for j, clf in enumerate(clfs):
         print(tabulate(table, headers=header))
         print("")
 
-        plot_radars(methods, metrics, table, clf, drift, "drift_type")
+        plot_radars(methods[j], metrics, table, clf, drift, "drift_type")
 
     for i, distribution in enumerate(dist):
         print("\n---\n--- %s\n---\n" % (distribution))
@@ -294,7 +299,7 @@ for j, clf in enumerate(clfs):
         reduced_scores = np.mean(sub_scores, axis=0)
         reduced_scores = np.mean(reduced_scores, axis=0)
         table = []
-        header = ["Metric"] + methods
+        header = ["Metric"] + methods[j]
         for k, metric in enumerate(metrics):
             # METHOD, CHUNK, Metryka
             selected_scores = reduced_scores[:,:,k]
@@ -305,7 +310,7 @@ for j, clf in enumerate(clfs):
         print(tabulate(table, headers=header))
         print("")
 
-        plot_radars(methods, metrics, table, clf, distribution, "distributions")
+        plot_radars(methods[j], metrics, table, clf, distribution, "distributions")
 
     for i, label_noise in enumerate(ln):
         print("\n---\n--- %s\n---\n" % (label_noise))
@@ -317,7 +322,7 @@ for j, clf in enumerate(clfs):
         reduced_scores = np.mean(sub_scores, axis=0)
         reduced_scores = np.mean(reduced_scores, axis=0)
         table = []
-        header = ["Metric"] + methods
+        header = ["Metric"] + methods[j]
         for k, metric in enumerate(metrics):
             # METHOD, CHUNK, Metryka
             selected_scores = reduced_scores[:,:,k]
@@ -328,4 +333,4 @@ for j, clf in enumerate(clfs):
         print(tabulate(table, headers=header))
         print("")
 
-        plot_radars(methods, metrics, table, clf, label_noise, "label_noise")
+        plot_radars(methods[j], metrics, table, clf, label_noise, "label_noise")

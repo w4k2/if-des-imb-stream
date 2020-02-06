@@ -38,7 +38,7 @@ scores = np.load("scores.npy")
 def plot_runs(
     clfs, metrics, selected_scores, methods, mean_scores, dependency, what
 ):
-    fig = plt.figure(figsize=(4, 4))
+    fig = plt.figure(figsize=(4.5, 3))
     ax = plt.axes()
     for z, (value, label, mean) in enumerate(
         zip(selected_scores, methods, mean_scores)
@@ -57,7 +57,7 @@ def plot_runs(
         # bbox_to_anchor=(0.5, -0.1),
         fancybox=False,
         shadow=True,
-        ncol=3,
+        ncol=5,
         fontsize=6,
         frameon=False,
     )
@@ -74,11 +74,11 @@ def plot_runs(
         y=1.04,
         fontsize=8,
     )
-    plt.ylim(0.0, 1.0)
+    plt.ylim(0.0, 0.8)
     plt.xticks(fontfamily="serif")
     plt.yticks(fontfamily="serif")
-    plt.ylabel("score", fontfamily="serif", fontsize=8)
-    plt.xlabel("chunks", fontfamily="serif", fontsize=8)
+    plt.ylabel("score", fontfamily="serif", fontsize=6)
+    plt.xlabel("chunks", fontfamily="serif", fontsize=6)
     plt.tight_layout()
     plt.savefig("plots/experiment1/runs/%s/1_%s_%s_%s.eps" % (what, clfs[j], metrics[i], dependency[k]), bbox_inches='tight', dpi=250)
     plt.close()
@@ -135,7 +135,7 @@ def plot_radars(
         ncol=3,
         columnspacing=1,
         frameon=False,
-        bbox_to_anchor=(0.5, -0.3),
+        bbox_to_anchor=(0.5, -0.25),
         fontsize=6,
     )
 
@@ -150,7 +150,7 @@ def plot_radars(
     a = np.linspace(0, 1, 6)
     plt.yticks(a[1:], ["%.1f" % f for f in a[1:]], fontsize=6, rotation=90)
     plt.ylim(0.0, 1.0)
-    plt.gcf().set_size_inches(4, 4)
+    plt.gcf().set_size_inches(4, 3.5)
     plt.gcf().canvas.draw()
     angles = np.rad2deg(angles)
 
