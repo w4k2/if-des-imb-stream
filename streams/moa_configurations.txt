@@ -1,0 +1,60 @@
+SUDDEN
+
+WriteStreamToARFFFile -s (ConceptDriftStream -s (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.01)) -c 0.95;0.05) -d (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -f 2 -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.01)) -c 0.95;0.05) -p 25000 -w 1) -f gr_css999_rs804_nd1_ln1_d95_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ConceptDriftStream -s (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.03)) -c 0.95;0.05) -d (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -f 2 -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.03)) -c 0.95;0.05) -p 25000 -w 1) -f gr_css999_rs804_nd1_ln3_d95_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ConceptDriftStream -s (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.05)) -c 0.95;0.05) -d (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -f 2 -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.05)) -c 0.95;0.05) -p 25000 -w 1) -f gr_css999_rs804_nd1_ln5_d95_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ConceptDriftStream -s (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.01)) -c 0.90;0.10) -d (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -f 2 -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.01)) -c 0.90;0.10) -p 25000 -w 1) -f gr_css999_rs804_nd1_ln1_d90_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ConceptDriftStream -s (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.03)) -c 0.90;0.10) -d (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -f 2 -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.03)) -c 0.90;0.10) -p 25000 -w 1) -f gr_css999_rs804_nd1_ln3_d90_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ConceptDriftStream -s (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.05)) -c 0.90;0.10) -d (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -f 2 -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.05)) -c 0.90;0.10) -p 25000 -w 1) -f gr_css999_rs804_nd1_ln5_d90_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ConceptDriftStream -s (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.01)) -c 0.85;0.15) -d (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -f 2 -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.01)) -c 0.85;0.15) -p 25000 -w 1) -f gr_css999_rs804_nd1_ln1_d85_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ConceptDriftStream -s (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.03)) -c 0.85;0.15) -d (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -f 2 -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.03)) -c 0.85;0.15) -p 25000 -w 1) -f gr_css999_rs804_nd1_ln3_d85_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ConceptDriftStream -s (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.05)) -c 0.85;0.15) -d (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -f 2 -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.05)) -c 0.85;0.15) -p 25000 -w 1) -f gr_css999_rs804_nd1_ln5_d85_50000.arff -m 50000
+
+GRADUAL
+
+WriteStreamToARFFFile -s (ConceptDriftStream -s (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.01)) -c 0.95;0.05) -d (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -f 2 -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.01)) -c 0.95;0.05) -p 25000 -w 15000) -f gr_css5_rs804_nd1_ln1_d95_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ConceptDriftStream -s (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.03)) -c 0.95;0.05) -d (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -f 2 -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.03)) -c 0.95;0.05) -p 25000 -w 15000) -f gr_css5_rs804_nd1_ln3_d95_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ConceptDriftStream -s (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.05)) -c 0.95;0.05) -d (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -f 2 -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.05)) -c 0.95;0.05) -p 25000 -w 15000) -f gr_css5_rs804_nd1_ln5_d95_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ConceptDriftStream -s (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.01)) -c 0.90;0.10) -d (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -f 2 -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.01)) -c 0.90;0.10) -p 25000 -w 15000) -f gr_css5_rs804_nd1_ln1_d90_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ConceptDriftStream -s (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.03)) -c 0.90;0.10) -d (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -f 2 -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.03)) -c 0.90;0.10) -p 25000 -w 15000) -f gr_css5_rs804_nd1_ln3_d90_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ConceptDriftStream -s (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.05)) -c 0.90;0.10) -d (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -f 2 -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.05)) -c 0.90;0.10) -p 25000 -w 15000) -f gr_css5_rs804_nd1_ln5_d90_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ConceptDriftStream -s (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.01)) -c 0.85;0.15) -d (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -f 2 -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.01)) -c 0.85;0.15) -p 25000 -w 15000) -f gr_css5_rs804_nd1_ln1_d85_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ConceptDriftStream -s (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.03)) -c 0.85;0.15) -d (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -f 2 -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.03)) -c 0.85;0.15) -p 25000 -w 15000) -f gr_css5_rs804_nd1_ln3_d85_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ConceptDriftStream -s (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.05)) -c 0.85;0.15) -d (ImbalancedStream -s (FilteredStream -s (generators.AgrawalGenerator -f 2 -p 0.0) -f (AddNoiseFilter -a 0.0 -c 0.05)) -c 0.85;0.15) -p 25000 -w 15000) -f gr_css5_rs804_nd1_ln5_d85_50000.arff -m 50000
+
+INCREMENTAL
+
+WriteStreamToARFFFile -s (ImbalancedStream -s (FilteredStream -s (generators.HyperplaneGenerator -k 10 -t 0.005 -n 0) -f (AddNoiseFilter -a 0.0 -c 0.01)) -c 0.95;0.05) -f inc_css5_rs804_nd1_ln1_d95_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ImbalancedStream -s (FilteredStream -s (generators.HyperplaneGenerator -k 10 -t 0.005 -n 0) -f (AddNoiseFilter -a 0.0 -c 0.03)) -c 0.95;0.05) -f inc_css5_rs804_nd1_ln3_d95_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ImbalancedStream -s (FilteredStream -s (generators.HyperplaneGenerator -k 10 -t 0.005 -n 0) -f (AddNoiseFilter -a 0.0 -c 0.05)) -c 0.95;0.05) -f inc_css5_rs804_nd1_ln5_d95_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ImbalancedStream -s (FilteredStream -s (generators.HyperplaneGenerator -k 10 -t 0.005 -n 0) -f (AddNoiseFilter -a 0.0 -c 0.01)) -c 0.90;0.10) -f inc_css5_rs804_nd1_ln1_d90_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ImbalancedStream -s (FilteredStream -s (generators.HyperplaneGenerator -k 10 -t 0.005 -n 0) -f (AddNoiseFilter -a 0.0 -c 0.03)) -c 0.90;0.10) -f inc_css5_rs804_nd1_ln3_d90_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ImbalancedStream -s (FilteredStream -s (generators.HyperplaneGenerator -k 10 -t 0.005 -n 0) -f (AddNoiseFilter -a 0.0 -c 0.05)) -c 0.90;0.10) -f inc_css5_rs804_nd1_ln5_d90_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ImbalancedStream -s (FilteredStream -s (generators.HyperplaneGenerator -k 10 -t 0.005 -n 0) -f (AddNoiseFilter -a 0.0 -c 0.01)) -c 0.85;0.15) -f inc_css5_rs804_nd1_ln1_d85_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ImbalancedStream -s (FilteredStream -s (generators.HyperplaneGenerator -k 10 -t 0.005 -n 0) -f (AddNoiseFilter -a 0.0 -c 0.03)) -c 0.85;0.15) -f inc_css5_rs804_nd1_ln3_d85_50000.arff -m 50000
+
+WriteStreamToARFFFile -s (ImbalancedStream -s (FilteredStream -s (generators.HyperplaneGenerator -k 10 -t 0.005 -n 0) -f (AddNoiseFilter -a 0.0 -c 0.05)) -c 0.85;0.15) -f inc_css5_rs804_nd1_ln5_d85_50000.arff -m 50000
+

@@ -34,7 +34,7 @@ scores = np.load("scores_3.npy")
 def plot_runs(
     clfs, metrics, selected_scores, methods, mean_scores, dependency, what
 ):
-    fig = plt.figure(figsize=(4, 4))
+    fig = plt.figure(figsize=(4.5, 3))
     ax = plt.axes()
     for z, (value, label, mean) in enumerate(
         zip(selected_scores, methods, mean_scores)
@@ -42,21 +42,32 @@ def plot_runs(
         label += "\n{0:.3f}".format(mean)
         val = gaussian_filter1d(value, sigma=3, mode="nearest")
 
-        # plt.plot(value, label=label, c=colors[z], ls=ls[z])
-
         plt.plot(val, label=label, c=colors[z], ls=ls[z], lw=lw[z])
 
     # box = ax.get_position()
     # ax.set_position([box.x0, box.y0 + box.height * 0.1, box.width, box.height * 0.9])
-    ax.legend(
-        loc=8,
-        # bbox_to_anchor=(0.5, -0.1),
-        fancybox=False,
-        shadow=True,
-        ncol=3,
-        fontsize=6,
-        frameon=False,
-    )
+    if clfs[j] == "HT":
+        ax.legend(
+            loc=8,
+            # bbox_to_anchor=(0.5, -0.04),
+            bbox_to_anchor=(0.25, -0.04),
+            fancybox=False,
+            shadow=True,
+            # ncol=4,
+            ncol=2,
+            fontsize=6,
+            frameon=False,
+        )
+    elif clfs[j] == "GNB":
+        ax.legend(
+            loc=8,
+            bbox_to_anchor=(0.25, -0.04),
+            fancybox=False,
+            shadow=True,
+            ncol=2,
+            fontsize=6,
+            frameon=False,
+        )
 
     plt.grid(ls=":", c=(0.7, 0.7, 0.7))
     plt.xlim(0, 200)
@@ -73,8 +84,8 @@ def plot_runs(
     plt.ylim(0.0, 1.0)
     plt.xticks(fontfamily="serif")
     plt.yticks(fontfamily="serif")
-    plt.ylabel("score", fontfamily="serif", fontsize=8)
-    plt.xlabel("chunks", fontfamily="serif", fontsize=8)
+    plt.ylabel("score", fontfamily="serif", fontsize=6)
+    plt.xlabel("chunks", fontfamily="serif", fontsize=6)
     plt.tight_layout()
     plt.savefig("plots/experiment3/runs/%s/3_%s_%s_%s.eps" % (what, clfs[j], metrics[i], dependency[k]), bbox_inches='tight', dpi=250)
     plt.close()
@@ -131,7 +142,7 @@ def plot_radars(
         ncol=3,
         columnspacing=1,
         frameon=False,
-        bbox_to_anchor=(0.5, -0.3),
+        bbox_to_anchor=(0.5, -0.32),
         fontsize=6,
     )
 
@@ -146,7 +157,7 @@ def plot_radars(
     a = np.linspace(0, 1, 6)
     plt.yticks(a[1:], ["%.1f" % f for f in a[1:]], fontsize=6, rotation=90)
     plt.ylim(0.0, 1.0)
-    plt.gcf().set_size_inches(4, 4)
+    plt.gcf().set_size_inches(4, 3.5)
     plt.gcf().canvas.draw()
     angles = np.rad2deg(angles)
 
@@ -249,6 +260,18 @@ for j, clf in enumerate(clfs):
             table.append([drift] + ["%.3f" % score for score in mean_scores])
 
             plot_runs(clfs, metrics, selected_scores, methods, mean_scores, drifts, "drift_type")
+
+            # Drift evaluation
+            # for i in range(selected_scores.shape[0]):
+            #     from csm import DriftEvaluator
+            #     eval_ready_scores = selected_scores[i].reshape(1,199,1)
+            #     drift_evaluator = DriftEvaluator(scores=eval_ready_scores, drift_indices=[100])
+            #
+            #     max_performance_loss = drift_evaluator.get_max_performance_loss()
+            #     recovery_lengths = drift_evaluator.get_recovery_lengths()
+            #     print(methods[i])
+            #     print(max_performance_loss)
+            #     print(recovery_lengths)
 
         # print(table)
         print(tabulate(table, headers=header))

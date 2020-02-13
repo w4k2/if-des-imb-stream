@@ -54,7 +54,7 @@ def plot_runs(
     # ax.set_position([box.x0, box.y0 + box.height * 0.1, box.width, box.height * 0.9])
     ax.legend(
         loc=8,
-        # bbox_to_anchor=(0.5, -0.1),
+        bbox_to_anchor=(0.5, 0.86),
         fancybox=False,
         shadow=True,
         ncol=5,
@@ -74,7 +74,7 @@ def plot_runs(
         y=1.04,
         fontsize=8,
     )
-    plt.ylim(0.0, 0.8)
+    plt.ylim(0.0, 1.0)
     plt.xticks(fontfamily="serif")
     plt.yticks(fontfamily="serif")
     plt.ylabel("score", fontfamily="serif", fontsize=6)
@@ -219,8 +219,8 @@ for j, clf in enumerate(clfs):
 
             plot_runs(clfs, metrics, selected_scores, methods, mean_scores, ln, "label_noise")
 
-        print(tabulate(table, headers=header))
-        print("")
+        # print(tabulate(table, headers=header))
+        # print("")
 
         # DISTRIBUTION
         # CHUJ, DIST, LABELNOISE, METHOD, CHUNK
@@ -237,8 +237,8 @@ for j, clf in enumerate(clfs):
             plot_runs(clfs, metrics, selected_scores, methods, mean_scores, dist, "distributions")
 
         # print(table)
-        print(tabulate(table, headers=header))
-        print("")
+        # print(tabulate(table, headers=header))
+        # print("")
 
         # Drift
         # CHUJ, DIST, LABELNOISE, METHOD, CHUNK
@@ -254,9 +254,30 @@ for j, clf in enumerate(clfs):
 
             plot_runs(clfs, metrics, selected_scores, methods, mean_scores, drifts, "drift_type")
 
+            # Drift evaluation
+            print("#######  %s #######" % (drift))
+            print(methods)
+            a = []
+            b = []
+            for i in range(selected_scores.shape[0]):
+                from csm import DriftEvaluator
+                eval_ready_scores = selected_scores[i].reshape(1,199,1)
+                drift_evaluator = DriftEvaluator(scores=eval_ready_scores, drift_indices=[99])
+
+                max_performance_loss = drift_evaluator.get_max_performance_loss()
+                recovery_lengths = drift_evaluator.get_recovery_lengths()
+                # print(max_performance_loss)
+                # print(recovery_lengths)
+                a.append(round(max_performance_loss[0],4))
+                b.append(round(recovery_lengths[0],4))
+                # print(methods[i])
+                # print(max_performance_loss)
+                # print(recovery_lengths)
+            print(" & ".join(map(str, a)))
+            print(" & ".join(map(str, b)))
         # print(table)
-        print(tabulate(table, headers=header))
-        print("")
+        # print(tabulate(table, headers=header))
+        # print("")
 
 # RADAR DIAGRAMS
 
@@ -280,8 +301,8 @@ for j, clf in enumerate(clfs):
             table.append([metric] + ["%.3f" % score for score in mean_scores])
 
         # print(table)
-        print(tabulate(table, headers=header))
-        print("")
+        # print(tabulate(table, headers=header))
+        # print("")
 
         plot_radars(methods, metrics, table, clf, drift, "drift_type")
 
@@ -303,8 +324,8 @@ for j, clf in enumerate(clfs):
             table.append([metric] + ["%.3f" % score for score in mean_scores])
 
         # print(table)
-        print(tabulate(table, headers=header))
-        print("")
+        # print(tabulate(table, headers=header))
+        # print("")
 
         plot_radars(methods, metrics, table, clf, distribution, "distributions")
 
@@ -326,7 +347,7 @@ for j, clf in enumerate(clfs):
             table.append([metric] + ["%.3f" % score for score in mean_scores])
 
         # print(table)
-        print(tabulate(table, headers=header))
-        print("")
+        # print(tabulate(table, headers=header))
+        # print("")
 
         plot_radars(methods, metrics, table, clf, label_noise, "label_noise")

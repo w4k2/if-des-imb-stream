@@ -1,11 +1,45 @@
 import numpy as np
 from strlearn.streams import StreamGenerator, ARFFParser
 
+
 def realstreams():
     return {
-    "elecNormNew": ARFFParser("streams/elecNormNew.arff", n_chunks=4),
-    "IntelLabSensors-1vsAll": ARFFParser("streams/IntelLabSensors-1vsAll.arff", n_chunks=4),
+        "BNG_bridges-1vsAll": ARFFParser("streams/BNG_bridges-1vsAll.arff", n_chunks=3999, chunk_size=250),
+        "BNG_hepatitis": ARFFParser("streams/BNG_hepatitis.arff", n_chunks=3999, chunk_size=250),
+        # "poker-lsn-1-2vsAll": ARFFParser("streams/poker-lsn-1-2vsAll.arff", n_chunks=999, chunk_size=1000),
     }
+
+def moa_streams():
+    return {
+        "gr_css5_rs804_nd1_ln1_d85_50000": ARFFParser("streams/gr_css5_rs804_nd1_ln1_d85_50000.arff", n_chunks=200, chunk_size=250),
+        "gr_css5_rs804_nd1_ln1_d90_50000": ARFFParser("streams/gr_css5_rs804_nd1_ln1_d90_50000.arff", n_chunks=200, chunk_size=250),
+        "gr_css5_rs804_nd1_ln1_d95_50000": ARFFParser("streams/gr_css5_rs804_nd1_ln1_d95_50000.arff", n_chunks=200, chunk_size=250),
+        "gr_css5_rs804_nd1_ln3_d85_50000": ARFFParser("streams/gr_css5_rs804_nd1_ln3_d85_50000.arff", n_chunks=200, chunk_size=250),
+        "gr_css5_rs804_nd1_ln3_d90_50000": ARFFParser("streams/gr_css5_rs804_nd1_ln3_d90_50000.arff", n_chunks=200, chunk_size=250),
+        "gr_css5_rs804_nd1_ln3_d95_50000": ARFFParser("streams/gr_css5_rs804_nd1_ln3_d95_50000.arff", n_chunks=200, chunk_size=250),
+        "gr_css5_rs804_nd1_ln5_d85_50000": ARFFParser("streams/gr_css5_rs804_nd1_ln5_d85_50000.arff", n_chunks=200, chunk_size=250),
+        "gr_css5_rs804_nd1_ln5_d90_50000": ARFFParser("streams/gr_css5_rs804_nd1_ln5_d90_50000.arff", n_chunks=200, chunk_size=250),
+        "gr_css5_rs804_nd1_ln5_d95_50000": ARFFParser("streams/gr_css5_rs804_nd1_ln5_d95_50000.arff", n_chunks=200, chunk_size=250),
+        "gr_css999_rs804_nd1_ln1_d85_50000": ARFFParser("streams/gr_css999_rs804_nd1_ln1_d85_50000.arff", n_chunks=200, chunk_size=250),
+        "gr_css999_rs804_nd1_ln1_d90_50000": ARFFParser("streams/gr_css999_rs804_nd1_ln1_d90_50000.arff", n_chunks=200, chunk_size=250),
+        "gr_css999_rs804_nd1_ln1_d95_50000": ARFFParser("streams/gr_css999_rs804_nd1_ln1_d95_50000.arff", n_chunks=200, chunk_size=250),
+        "gr_css999_rs804_nd1_ln3_d85_50000": ARFFParser("streams/gr_css999_rs804_nd1_ln3_d85_50000.arff", n_chunks=200, chunk_size=250),
+        "gr_css999_rs804_nd1_ln3_d90_50000": ARFFParser("streams/gr_css999_rs804_nd1_ln3_d90_50000.arff", n_chunks=200, chunk_size=250),
+        "gr_css999_rs804_nd1_ln3_d95_50000": ARFFParser("streams/gr_css999_rs804_nd1_ln3_d95_50000.arff", n_chunks=200, chunk_size=250),
+        "gr_css999_rs804_nd1_ln5_d85_50000": ARFFParser("streams/gr_css999_rs804_nd1_ln5_d85_50000.arff", n_chunks=200, chunk_size=250),
+        "gr_css999_rs804_nd1_ln5_d90_50000": ARFFParser("streams/gr_css999_rs804_nd1_ln5_d90_50000.arff", n_chunks=200, chunk_size=250),
+        "gr_css999_rs804_nd1_ln5_d95_50000": ARFFParser("streams/gr_css999_rs804_nd1_ln5_d95_50000.arff", n_chunks=200, chunk_size=250),
+        "inc_css5_rs804_nd1_ln1_d85_50000": ARFFParser("streams/inc_css5_rs804_nd1_ln1_d85_50000.arff", n_chunks=200, chunk_size=250),
+        "inc_css5_rs804_nd1_ln1_d90_50000": ARFFParser("streams/inc_css5_rs804_nd1_ln1_d90_50000.arff", n_chunks=200, chunk_size=250),
+        "inc_css5_rs804_nd1_ln1_d95_50000": ARFFParser("streams/inc_css5_rs804_nd1_ln1_d95_50000.arff", n_chunks=200, chunk_size=250),
+        "inc_css5_rs804_nd1_ln3_d85_50000": ARFFParser("streams/inc_css5_rs804_nd1_ln3_d85_50000.arff", n_chunks=200, chunk_size=250),
+        "inc_css5_rs804_nd1_ln3_d90_50000": ARFFParser("streams/inc_css5_rs804_nd1_ln3_d90_50000.arff", n_chunks=200, chunk_size=250),
+        "inc_css5_rs804_nd1_ln3_d95_50000": ARFFParser("streams/inc_css5_rs804_nd1_ln3_d95_50000.arff", n_chunks=200, chunk_size=250),
+        "inc_css5_rs804_nd1_ln5_d85_50000": ARFFParser("streams/inc_css5_rs804_nd1_ln5_d85_50000.arff", n_chunks=200, chunk_size=250),
+        "inc_css5_rs804_nd1_ln5_d90_50000": ARFFParser("streams/inc_css5_rs804_nd1_ln5_d90_50000.arff", n_chunks=200, chunk_size=250),
+        "inc_css5_rs804_nd1_ln5_d95_50000": ARFFParser("streams/inc_css5_rs804_nd1_ln5_d95_50000.arff", n_chunks=200, chunk_size=250),
+    }
+
 
 def toystreams(random_state):
     # Variables

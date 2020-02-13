@@ -58,7 +58,7 @@ def plot_runs(
     # ax.set_position([box.x0, box.y0 + box.height * 0.1, box.width, box.height * 0.9])
     ax.legend(
         loc=8,
-        # bbox_to_anchor=(0.5, -0.1),
+        bbox_to_anchor=(0.5, 0.76),
         fancybox=False,
         shadow=True,
         ncol=3,
@@ -78,7 +78,7 @@ def plot_runs(
         y=1.04,
         fontsize=8,
     )
-    plt.ylim(0.0, 0.8)
+    plt.ylim(0.0, 1.0)
     plt.xticks(fontfamily="serif")
     plt.yticks(fontfamily="serif")
     plt.ylabel("score", fontfamily="serif", fontsize=6)
