@@ -84,7 +84,7 @@ def toystreams(random_state):
 
 def streams(random_state):
     # Variables
-    distributions = [[0.95, 0.05], [0.90, 0.10], [0.85, 0.15], [0.80, 0.20]]
+    distributions = [[0.95, 0.05], [0.90, 0.10], [0.85, 0.15]]
     label_noises = [
         0.01,
         0.03,

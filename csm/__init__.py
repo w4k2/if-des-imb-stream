@@ -9,5 +9,17 @@ from .SEA import SEA
 from .StratifiedBagging import StratifiedBagging
 from .OB import OnlineBagging
 from .DriftEvaluator import DriftEvaluator
+from .kMeanClustering import KMeanClustering
+from .learnppCDS import LearnppCDS
+from .learnppNIE import LearnppNIE
+from .rea import REA
+from .ouse import OUSE
+from .oceis import OCEIS
 
-__all__ = ["MDE", "Dumb", "StreamGenerator", "OOB", "UOB", "SampleWeightedMetaEstimator", "MDET", "SEA", "OnlineBagging", "DriftEvaluator"]
+__all__ = ["MDE", "Dumb", "StreamGenerator", "OOB", "UOB",
+           "SampleWeightedMetaEstimator", "MDET", "SEA", "OnlineBagging", "DriftEvaluator", 'KMeanClustering',
+           'LearnppCDS',
+           'LearnppNIE',
+           'REA',
+           'OUSE',
+           'OCEIS']
