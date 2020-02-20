@@ -46,28 +46,15 @@ def plot_runs(
 
     # box = ax.get_position()
     # ax.set_position([box.x0, box.y0 + box.height * 0.1, box.width, box.height * 0.9])
-    if clfs[j] == "HT":
-        ax.legend(
-            loc=8,
-            # bbox_to_anchor=(0.5, -0.04),
-            bbox_to_anchor=(0.25, -0.04),
-            fancybox=False,
-            shadow=True,
-            # ncol=4,
-            ncol=2,
-            fontsize=6,
-            frameon=False,
-        )
-    elif clfs[j] == "GNB":
-        ax.legend(
-            loc=8,
-            bbox_to_anchor=(0.25, -0.04),
-            fancybox=False,
-            shadow=True,
-            ncol=2,
-            fontsize=6,
-            frameon=False,
-        )
+    ax.legend(
+        loc=8,
+        bbox_to_anchor=(0.5, 0.95),
+        fancybox=False,
+        shadow=True,
+        ncol=4,
+        fontsize=6,
+        frameon=False,
+    )
 
     plt.grid(ls=":", c=(0.7, 0.7, 0.7))
     plt.xlim(0, 200)
@@ -78,7 +65,7 @@ def plot_runs(
     plt.title(
         "%s %s\n%s" % (clfs[j], dependency[k][:], metrics[i]),
         fontfamily="serif",
-        y=1.04,
+        y=1.25,
         fontsize=8,
     )
     plt.ylim(0.0, 1.0)
