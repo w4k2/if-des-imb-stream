@@ -43,7 +43,7 @@ def plot_runs(
     for z, (value, label, mean) in enumerate(
         zip(selected_scores, methods, mean_scores)
     ):
-        label += "\n{0:.3f}".format(mean)
+        label = "\n{0:.3f}".format(mean)
         val = gaussian_filter1d(value, sigma=3, mode="nearest")
 
         # plt.plot(value, label=label, c=colors[z], ls=ls[z])
@@ -54,11 +54,11 @@ def plot_runs(
     # ax.set_position([box.x0, box.y0 + box.height * 0.1, box.width, box.height * 0.9])
     ax.legend(
         loc=8,
-        bbox_to_anchor=(0.5, 0.86),
+        bbox_to_anchor=(0.5, 0.97),
         fancybox=False,
         shadow=True,
         ncol=5,
-        fontsize=6,
+        fontsize=7,
         frameon=False,
     )
 
@@ -68,19 +68,19 @@ def plot_runs(
     axx.spines["right"].set_visible(False)
     axx.spines["top"].set_visible(False)
 
-    plt.title(
-        "%s %s\n%s" % (clfs[j], dependency[k][:], metrics[i]),
-        fontfamily="serif",
-        y=1.04,
-        fontsize=8,
-    )
+    # plt.title(
+    #     "%s %s\n%s" % (clfs[j], dependency[k][:], metrics[i]),
+    #     fontfamily="serif",
+    #     y=1.04,
+    #     fontsize=8,
+    # )
     plt.ylim(0.0, 1.0)
     plt.xticks(fontfamily="serif")
     plt.yticks(fontfamily="serif")
-    plt.ylabel("score", fontfamily="serif", fontsize=6)
+    plt.ylabel(metrics[i], fontfamily="serif", fontsize=6)
     plt.xlabel("chunks", fontfamily="serif", fontsize=6)
     plt.tight_layout()
-    plt.savefig("plots/experiment1/runs/%s/1_%s_%s_%s.eps" % (what, clfs[j], metrics[i], dependency[k]), bbox_inches='tight', dpi=250)
+    plt.savefig("plots/experiment1/runs/%s/1_%s_%s_%s.eps" % (what, clfs[j], metrics[i], dependency[k]), bbox_inches='tight', dpi=250, pad_inches=0.0)
     plt.close()
 
 def plot_radars(
@@ -194,7 +194,7 @@ def plot_radars(
     ax.set_xticklabels([])
     ax.set_yticklabels([])
 
-    plt.savefig("plots/experiment1/radars/%s/1_%s_%s.eps" % (what, classifier_name, parameter_name), bbox_inches='tight', dpi=250)
+    plt.savefig("plots/experiment1/radars/%s/1_%s_%s.eps" % (what, classifier_name, parameter_name), bbox_inches='tight', dpi=250, pad_inches=0.0)
     plt.close()
 
 for j, clf in enumerate(clfs):
