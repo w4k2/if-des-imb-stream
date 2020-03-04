@@ -121,3 +121,42 @@ def streams(random_state):
                         streams.update({str(stream): stream})
 
     return streams
+
+
+def timestream(chunk_size):
+    # Variables
+    distributions = [[0.80, 0.20]]
+    label_noises = [
+        0.01,
+    ]
+    incremental = [False]
+    ccs = [None]
+    n_drifts = 1
+
+    # Prepare streams
+    streams = {}
+    for drift_type in incremental:
+        for distribution in distributions:
+            for flip_y in label_noises:
+                for spacing in ccs:
+                    stream = StreamGenerator(
+                        incremental=drift_type,
+                        weights=distribution,
+                        random_state=1994,
+                        y_flip=flip_y,
+                        concept_sigmoid_spacing=spacing,
+                        n_drifts=n_drifts,
+                        chunk_size=chunk_size,
+                        n_chunks=5,
+                        n_clusters_per_class=1,
+                        n_features=8,
+                        n_informative=8,
+                        n_redundant=0,
+                        n_repeated=0,
+                    )
+                    if spacing == None and drift_type == True:
+                        pass
+                    else:
+                        streams.update({str(stream): stream})
+
+    return streams

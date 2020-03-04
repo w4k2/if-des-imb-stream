@@ -65,25 +65,25 @@ class KMeanClustering(BaseEstimator):
             self.classifier_array.append(new_classifier)
             self.classifier_weights.append(1)
         else:
-            auc_array = []
+            self.auc_array = []
             for i in range(len(self.classifier_array)):
-                y_score = self.classifier_array[i].predict_proba(res_X)
-                fpr, tpr, thresholds = metrics.roc_curve(res_y, y_score[:, 0])
-                auc_array += [metrics.auc(fpr, tpr)]
+                y_score = self.classifier_array[i].predict_proba(X)
+                fpr, tpr, thresholds = metrics.roc_curve(y, y_score[:, 1])
+                self.auc_array += [metrics.auc(fpr, tpr)]
 
-            j = np.argmin(auc_array)
+            j = np.argmin(self.auc_array)
 
-            y_score = new_classifier.predict_proba(res_X)
-            fpr, tpr, thresholds = metrics.roc_curve(res_y, y_score[:, 0])
-            new_auc = metrics.auc(fpr, tpr)
-
-            if new_auc > auc_array[j]:
+            y_score = new_classifier.predict_proba(X)
+            fpr, tpr, thresholds = metrics.roc_curve(y, y_score[:, 1])
+            self.new_auc = metrics.auc(fpr, tpr)
+            self.worst = self.auc_array[j]
+            if self.new_auc > self.auc_array[j]:
                 self.classifier_array[j] = new_classifier
-                auc_array[j] = new_auc
+                self.auc_array[j] = self.new_auc
 
-            # auc_norm = auc_array / np.linalg.norm(auc_array)
+            # auc_norm = self.auc_array / np.linalg.norm(self.auc_array)
             for i in range(len(self.classifier_array)):
-                self.classifier_weights[i] = auc_array[i]
+                self.classifier_weights[i] = self.auc_array[i]
 
     def _resample(self, X, y):
         y = np.array(y)

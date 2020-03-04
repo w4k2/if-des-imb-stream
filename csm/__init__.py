@@ -15,6 +15,7 @@ from .learnppNIE import LearnppNIE
 from .rea import REA
 from .ouse import OUSE
 from .oceis import OCEIS
+from .ttt import TestThenTrain
 
 __all__ = ["MDE", "Dumb", "StreamGenerator", "OOB", "UOB",
            "SampleWeightedMetaEstimator", "MDET", "SEA", "OnlineBagging", "DriftEvaluator", 'KMeanClustering',
@@ -22,4 +23,5 @@ __all__ = ["MDE", "Dumb", "StreamGenerator", "OOB", "UOB",
            'LearnppNIE',
            'REA',
            'OUSE',
-           'OCEIS']
+           'OCEIS',
+           'TestThenTrain']
