@@ -50,7 +50,7 @@ ros_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=GaussianNB(
 ), random_state=42, oversampler="ROS"), oversampled="ROS", des="KNORAE2")
 cnn_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=GaussianNB(), random_state=42, oversampler = "CNN"), oversampled="CNN" ,des="KNORAE2")
 
-clfs = (rea, cds, nie, ouse, kmc, ros_knorau2, cnn_knorau2, ros_knorae2, cnn_knorae2)
+clfs = (rea, ouse, kmc, cds, nie, ros_knorau2, cnn_knorau2, ros_knorae2, cnn_knorae2)
 
 # Define worker
 def worker(i, stream_n):

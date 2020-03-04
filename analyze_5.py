@@ -14,7 +14,7 @@ colors = [(0, 0, 0), (0.3, 0.8, 0.3), (0.3, 0.8, 0.3), (0, 0, 0), (0, 0, 0), (0,
 ls = ["-", "-", "--", "--", ":", "-", "--", "-", "--"]
 lw = [1, 1, 1, 1, 1, 1, 1, 1, 1]
 
-methods = ["REA", "L++CDS", "L++NIE", "OUSE", "KMC", "ROS-KNORAU2", "CNN-KNORAU2", "ROS-KNORAE2", "CNN-KNORAE2"]
+methods = ["REA", "OUSE", "KMC", "CDS", "NIE", "ROS-KNORAU2", "CNN-KNORAU2", "ROS-KNORAE2", "CNN-KNORAE2"]
 label_noises = [
     "0.01",
     "0.03",
