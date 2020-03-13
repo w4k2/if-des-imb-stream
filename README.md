@@ -1,4 +1,4 @@
-Rozwiniecie pomyslu z ICDM, Springer Machine Learning Journal special issue
+Rozwiniecie pomyslu z ICDM, Elsevier Knowledge-Based Systems Journal
 
 ## Zalozenia
 
