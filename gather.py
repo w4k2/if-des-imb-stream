@@ -14,7 +14,7 @@ label_noises = [
 # css = [5, None]
 # incremental = [False, True]
 
-chuj = [(5, False), (5, True), (None, False)]
+drifttype = [(5, False), (5, True), (None, False)]
 
 n_chunks = 199
 metrics = ["BAC", "geometric_mean_score", "f_score", "precision", "recall", "specificity"]
@@ -23,7 +23,7 @@ scores = np.zeros(
     (
         len(clfs),
         len(random_states),
-        len(chuj),
+        len(drifttype),
         # len(incremental),
         len(distributions),
         len(label_noises),
@@ -40,7 +40,7 @@ print(scores.shape)
 streams = {}
 for i, clf in enumerate(clfs):
     for j, random_state in enumerate(random_states):
-        for k, kurwa in enumerate(chuj):
+        for k, kurwa in enumerate(drifttype):
             for l, distribution in enumerate(distributions):
                 for m, flip_y in enumerate(label_noises):
                     # for n, spacing in enumerate(css):

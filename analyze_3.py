@@ -195,12 +195,12 @@ for j, clf in enumerate(clfs):
     print("\n###\n### %s\n###\n" % (clf))
     for i, metric in enumerate(metrics):
         print("\n---\n--- %s\n---\n" % (metric))
-        # KLASYFIKATOR, CHUJ, DIST, LABELNOISE, METHOD, CHUNK, METRYKA
+        # KLASYFIKATOR, drifttype, DIST, LABELNOISE, METHOD, CHUNK, METRYKA
         sub_scores = scores[j, :, :, :, :, :, i]
         # print(sub_scores.shape)
 
         # LABNO
-        # CHUJ, DIST, LABELNOISE, METHOD, CHUNK
+        # drifttype, DIST, LABELNOISE, METHOD, CHUNK
         reduced_scores = np.mean(sub_scores, axis=0)
         reduced_scores = np.mean(reduced_scores, axis=0)
         table = []
@@ -217,7 +217,7 @@ for j, clf in enumerate(clfs):
         print("")
 
         # DISTRIBUTION
-        # CHUJ, DIST, LABELNOISE, METHOD, CHUNK
+        # drifttype, DIST, LABELNOISE, METHOD, CHUNK
         reduced_scores = np.mean(sub_scores, axis=0)
         reduced_scores = np.mean(reduced_scores, axis=1)
         table = []
@@ -235,7 +235,7 @@ for j, clf in enumerate(clfs):
         print("")
 
         # Drift
-        # CHUJ, DIST, LABELNOISE, METHOD, CHUNK
+        # drifttype, DIST, LABELNOISE, METHOD, CHUNK
         reduced_scores = np.mean(sub_scores, axis=1)
         reduced_scores = np.mean(reduced_scores, axis=1)
         table = []
@@ -270,7 +270,7 @@ for j, clf in enumerate(clfs):
     print("\n###\n### %s\n###\n" % (clf))
     for i, drift in enumerate(drifts):
         print("\n---\n--- %s\n---\n" % (drift))
-        # KLASYFIKATOR, CHUJ, DIST, LABELNOISE, METHOD, CHUNK, METRYKA
+        # KLASYFIKATOR, drifttype, DIST, LABELNOISE, METHOD, CHUNK, METRYKA
         sub_scores = scores[j, i, :, :, :, :, :]
 
         # Metryka
@@ -293,11 +293,11 @@ for j, clf in enumerate(clfs):
 
     for i, distribution in enumerate(dist):
         print("\n---\n--- %s\n---\n" % (distribution))
-        # KLASYFIKATOR, CHUJ, DIST, LABELNOISE, METHOD, CHUNK, METRYKA
+        # KLASYFIKATOR, drifttype, DIST, LABELNOISE, METHOD, CHUNK, METRYKA
         sub_scores = scores[j, :, i, :, :, :, :]
 
         # Metryka
-        # CHUJ, LABELNOISE, METHOD, CHUNK, METRYKA
+        # drifttype, LABELNOISE, METHOD, CHUNK, METRYKA
         reduced_scores = np.mean(sub_scores, axis=0)
         reduced_scores = np.mean(reduced_scores, axis=0)
         table = []
@@ -316,11 +316,11 @@ for j, clf in enumerate(clfs):
 
     for i, label_noise in enumerate(ln):
         print("\n---\n--- %s\n---\n" % (label_noise))
-        # KLASYFIKATOR, CHUJ, DIST, LABELNOISE, METHOD, CHUNK, METRYKA
+        # KLASYFIKATOR, drifttype, DIST, LABELNOISE, METHOD, CHUNK, METRYKA
         sub_scores = scores[j, :, :, i, :, :, :]
 
         # Metryka
-        # CHUJ, LABELNOISE, METHOD, CHUNK, METRYKA
+        # drifttype, LABELNOISE, METHOD, CHUNK, METRYKA
         reduced_scores = np.mean(sub_scores, axis=0)
         reduced_scores = np.mean(reduced_scores, axis=0)
         table = []
