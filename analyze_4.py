@@ -18,7 +18,8 @@ methods = ["OB", "OOB", "UOB", "SEA", "ROS-KNORAU2", "CNN-KNORAU2", "ROS-KNORAE2
 metrics = ["Balanced accuracy", "G-mean", "f1 score", "precision", "recall", "specificity"]
 clfs = ["GNB"]
 
-names = ["BNG_bridges-1vsAll", "BNG_hepatitis"]
+# names = ["covtypeNorm-1-2vsAll", "poker-lsn-1-2vsAll"]
+names = ["covtypeNorm-1-2vsAll"]
 
 def plot_runs(
     clfs, metrics, selected_scores, methods, mean_scores, what
@@ -41,7 +42,7 @@ def plot_runs(
 
     ax.legend(
         loc=8,
-        bbox_to_anchor=(0.5, 0.76),
+        bbox_to_anchor=(0.5, 0.97),
         fancybox=False,
         shadow=True,
         ncol=4,
@@ -50,18 +51,18 @@ def plot_runs(
     )
 
     plt.grid(ls=":", c=(0.7, 0.7, 0.7))
-    plt.xlim(0, 4000)
+    plt.xlim(0, 265)
     axx = plt.gca()
     axx.spines["right"].set_visible(False)
     axx.spines["top"].set_visible(False)
 
-    plt.title(
-        "%s %s\n%s" % (what, "GNB", metrics[i]),
-        fontfamily="serif",
-        y=1.04,
-        fontsize=8,
-    )
-    plt.ylim(0.8, 1.0)
+    # plt.title(
+    #     "%s %s\n%s" % (what, "GNB", metrics[i]),
+    #     fontfamily="serif",
+    #     y=1.04,
+    #     fontsize=8,
+    # )
+    plt.ylim(0.5, 1.0)
     plt.xticks(fontfamily="serif")
     plt.yticks(fontfamily="serif")
     plt.ylabel("score", fontfamily="serif", fontsize=6)
@@ -188,7 +189,7 @@ def plot_radars(
 
 for j, name in enumerate(names):
     print("\n---\n--- %s\n---\n" % (name))
-    scores = np.load("results/experiment4_GNB/%s.npy" % (name))
+    scores = np.load("results/experiment4_GNB_2/%s.npy" % (name))
 
     for i, metric in enumerate(metrics):
         print("\n---\n--- %s\n---\n" % (metric))
@@ -208,5 +209,5 @@ for j, name in enumerate(names):
         mean_scores = np.mean(selected_scores, axis=1)
         table.append([metric] + ["%.3f" % score for score in mean_scores])
 
-    print(tabulate(table, headers=header))
+    print(tabulate(table, headers=header, tablefmt="latex_booktabs"))
     plot_radars(methods, metrics, table, "GNB", " ", name)

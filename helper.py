@@ -4,9 +4,14 @@ from strlearn.streams import StreamGenerator, ARFFParser
 
 def realstreams():
     return {
-        "BNG_bridges-1vsAll": ARFFParser("streams/BNG_bridges-1vsAll.arff", n_chunks=3999, chunk_size=250),
-        "BNG_hepatitis": ARFFParser("streams/BNG_hepatitis.arff", n_chunks=3999, chunk_size=250),
-        # "poker-lsn-1-2vsAll": ARFFParser("streams/poker-lsn-1-2vsAll.arff", n_chunks=999, chunk_size=1000),
+        # "covtypeNorm-1-2vsAll": ARFFParser("datasets/covtypeNorm-1-2vsAll-pruned.arff", n_chunks=265, chunk_size=1000),
+        "poker-lsn-1-2vsAll": ARFFParser("datasets/poker-lsn-1-2vsAll-pruned.arff", n_chunks=359, chunk_size=1000),
+    }
+
+def realstreams2():
+    return {
+        "covtypeNorm-1-2vsAll": ARFFParser("datasets/covtypeNorm-1-2vsAll-pruned.arff", n_chunks=265, chunk_size=1000),
+        "poker-lsn-1-2vsAll": ARFFParser("datasets/poker-lsn-1-2vsAll-pruned.arff", n_chunks=359, chunk_size=1000),
     }
 
 def moa_streams():

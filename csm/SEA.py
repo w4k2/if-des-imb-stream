@@ -7,7 +7,8 @@ from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
 import numpy as np
 from imblearn.over_sampling import RandomOverSampler, BorderlineSMOTE
 from imblearn.under_sampling import RandomUnderSampler, CondensedNearestNeighbour
-from deslib.des import KNORAU, KNORAE
+from deslib.des import KNORAE
+from utils import KNORAU
 from strlearn.metrics import balanced_accuracy_score
 
 
@@ -162,11 +163,11 @@ class SEA(ClassifierMixin, BaseEnsemble):
             average_support = np.mean(esm, axis=0)
             prediction = np.argmax(average_support, axis=1)
         elif self.des == "KNORAU1":
-            des = KNORAU(pool_classifiers=self.ensemble_, random_state=42)
+            des = KNORAU(ensemble=self.ensemble_)
             des.fit(self.dsel_X_, self.dsel_y_)
             prediction = des.predict(X)
         elif self.des == "KNORAU2":
-            des = KNORAU(pool_classifiers=self.ensemble_base_, random_state=42)
+            des = KNORAU(ensemble=self.ensemble_base_)
             des.fit(self.dsel_X_, self.dsel_y_)
             prediction = des.predict(X)
         elif self.des == "KNORAE1":
