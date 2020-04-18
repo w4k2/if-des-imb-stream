@@ -139,9 +139,16 @@ class LearnppCDS(BaseEstimator):
                                                     self.minority_name,
                                                     self.majority_name)
         if len(minioty) > 6:
-            res_X, res_y = SMOTE().fit_sample(X, y)
+            try:
+                res_X, res_y = SMOTE().fit_sample(X, y)
+            except:
+                res_X, res_y = X, y
         else:
-            res_X, res_y = SMOTE(k_neighbors=len(minioty)-1).fit_sample(X, y)
+            try:
+                res_X, res_y = SMOTE(k_neighbors=len(minioty)-1).fit_sample(X, y)
+            except:
+                res_X, res_y = X, y
+
         return res_X, res_y
 
     def predict(self, X):
