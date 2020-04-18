@@ -3,7 +3,7 @@ import numpy as np
 import helper as h
 from tqdm import tqdm
 import multiprocessing
-from csm import OOB, UOB, SampleWeightedMetaEstimator, Dumb, MDET, SEA, StratifiedBagging, OnlineBagging
+from csm import SEA, StratifiedBagging, REA, LearnppCDS, LearnppNIE, OUSE, KMeanClustering
 from strlearn.evaluators import TestThenTrain
 from sklearn.naive_bayes import GaussianNB
 from strlearn.metrics import (
@@ -20,15 +20,19 @@ from sklearn.tree import DecisionTreeClassifier
 from skmultiflow.trees import HoeffdingTree
 
 # Select streams and methods
-streams = h.realstreams()
+streams = h.realstreams2()
 print(len(streams))
 
-ob = OnlineBagging(n_estimators=20, base_estimator=HoeffdingTree(
-    split_criterion='hellinger'))
-oob = OOB(n_estimators=20, base_estimator=HoeffdingTree(
-    split_criterion='hellinger'))
-uob = UOB(n_estimators=20, base_estimator=HoeffdingTree(
-    split_criterion='hellinger'))
+rea = REA(base_classifier=StratifiedBagging(base_estimator=HoeffdingTree(
+    split_criterion='hellinger'), random_state=42), number_of_classifiers=5)
+cds = LearnppCDS(base_classifier=StratifiedBagging(base_estimator=HoeffdingTree(
+    split_criterion='hellinger'), random_state=42), number_of_classifiers=5)
+nie = LearnppNIE(base_classifier=StratifiedBagging(base_estimator=HoeffdingTree(
+    split_criterion='hellinger'), random_state=42), number_of_classifiers=5)
+ouse = OUSE(base_classifier=StratifiedBagging(base_estimator=HoeffdingTree(
+    split_criterion='hellinger'), random_state=42), number_of_classifiers=5)
+kmc = KMeanClustering(base_classifier=StratifiedBagging(base_estimator=HoeffdingTree(
+    split_criterion='hellinger'), random_state=42), number_of_classifiers=5)
 ros_knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
     split_criterion='hellinger'), random_state=42, oversampler="ROS"), oversampled="ROS", des="KNORAU2")
 cnn_knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
@@ -38,7 +42,7 @@ ros_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
 cnn_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
     split_criterion='hellinger'), random_state=42, oversampler = "CNN"), oversampled="CNN" ,des="KNORAE2")
 
-clfs = (ob, oob, uob, ros_knorau2, cnn_knorau2, ros_knorae2, cnn_knorae2)
+clfs = (rea, ouse, kmc, cds, nie, ros_knorau2, cnn_knorau2, ros_knorae2, cnn_knorae2)
 
 # Define worker
 def worker(i, stream_n):
@@ -56,7 +60,7 @@ def worker(i, stream_n):
         precision,
         recall,
         specificity
-    ))
+    ), verbose=True)
     eval.process(
         stream,
         cclfs
@@ -67,7 +71,7 @@ def worker(i, stream_n):
     results = eval.scores
     # print(eval.scores)
 
-    np.save("results/experiment4_HT_2/%s" % key, results)
+    np.save("results/experiment4_HT_3/%s" % key, results)
 
 
 jobs = []
