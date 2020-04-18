@@ -10,16 +10,16 @@ from matplotlib import rcParams
 
 # Set plot params
 rcParams["font.family"] = "monospace"
-colors = [(0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0.9), (0, 0, 0.9), (0.9, 0, 0), (0.9, 0, 0)]
-ls = ["-", "--", ":", "-.", "-", "--", "-", "--"]
-lw = [1, 1, 1, 1, 1, 1, 1, 1]
+colors = [(0, 0, 0), (0, 0, 0), (0, 0, 0), (0.3, 0.8, 0.3), (0.3, 0.8, 0.3), (0, 0, 0.9), (0, 0, 0.9), (0.9, 0, 0), (0.9, 0, 0)]
+ls = ["-", "--", ":", "-", "--", "-", "--", "-", "--"]
+lw = [1, 1, 1, 1, 1, 1, 1, 1, 1]
 
-methods = ["OB", "OOB", "UOB", "SEA", "ROS-KNORAU2", "CNN-KNORAU2", "ROS-KNORAE2", "CNN-KNORAE2"]
+methods = ["REA", "OUSE", "KMC", "CDS", "NIE", "ROS-KNORAU2", "CNN-KNORAU2", "ROS-KNORAE2", "CNN-KNORAE2"]
 metrics = ["Balanced accuracy", "G-mean", "f1 score", "precision", "recall", "specificity"]
 clfs = ["GNB"]
 
-names = ["covtypeNorm-1-2vsAll", "poker-lsn-1-2vsAll"]
-# names = ["covtypeNorm-1-2vsAll"]
+# names = ["covtypeNorm-1-2vsAll", "poker-lsn-1-2vsAll"]
+names = ["covtypeNorm-1-2vsAll"]
 
 def plot_runs(
     clfs, metrics, selected_scores, methods, mean_scores, what
@@ -189,7 +189,7 @@ def plot_radars(
 
 for j, name in enumerate(names):
     print("\n---\n--- %s\n---\n" % (name))
-    scores = np.load("results/experiment4_GNB_2/%s.npy" % (name))
+    scores = np.load("results/experiment4_GNB_3/%s.npy" % (name))
 
     for i, metric in enumerate(metrics):
         print("\n---\n--- %s\n---\n" % (metric))
@@ -197,7 +197,7 @@ for j, name in enumerate(names):
         selected_scores = scores[:, :, i]
         mean_scores = np.mean(selected_scores, axis=1)
 
-        plot_runs(clfs, metrics, selected_scores, methods, mean_scores, name)
+        plot_runs(clfs, metrics, selected_scores, methods, mean_scores, name+"2")
 
     # RADAR DIAGRAMS
 
@@ -210,4 +210,4 @@ for j, name in enumerate(names):
         table.append([metric] + ["%.3f" % score for score in mean_scores])
 
     print(tabulate(table, headers=header, tablefmt="latex_booktabs"))
-    plot_radars(methods, metrics, table, "GNB", " ", name)
+    plot_radars(methods, metrics, table, "GNB", " ", name+"2")
