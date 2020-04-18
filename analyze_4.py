@@ -13,6 +13,7 @@ rcParams["font.family"] = "monospace"
 colors = [(0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0.9), (0, 0, 0.9), (0.9, 0, 0), (0.9, 0, 0)]
 ls = ["-", "--", ":", "-.", "-", "--", "-", "--"]
 lw = [1, 1, 1, 1, 1, 1, 1, 1]
+n_chunks = [265, 360]
 
 methods = ["OB", "OOB", "UOB", "SEA", "ROS-KNORAU2", "CNN-KNORAU2", "ROS-KNORAE2", "CNN-KNORAE2"]
 metrics = ["Balanced accuracy", "G-mean", "f1 score", "precision", "recall", "specificity"]
@@ -51,7 +52,7 @@ def plot_runs(
     )
 
     plt.grid(ls=":", c=(0.7, 0.7, 0.7))
-    plt.xlim(0, 265)
+    plt.xlim(0, n_chunks[j])
     axx = plt.gca()
     axx.spines["right"].set_visible(False)
     axx.spines["top"].set_visible(False)
@@ -68,7 +69,7 @@ def plot_runs(
     plt.ylabel("score", fontfamily="serif", fontsize=6)
     plt.xlabel("chunks", fontfamily="serif", fontsize=6)
     plt.tight_layout()
-    plt.savefig("plots/experiment4/runs/4_%s_%s_%s.png" % (what, "GNB", metrics[i]), bbox_inches='tight', dpi=250)
+    plt.savefig("plots/experiment4/runs/4_%s_%s_%s.eps" % (what, "GNB", metrics[i]), bbox_inches='tight', dpi=250)
     plt.close()
 
 def plot_radars(
@@ -133,7 +134,7 @@ def plot_radars(
     plt.grid(ls=":", c=(0.7, 0.7, 0.7))
 
     # Add a title
-    plt.title("%s %s" % ("GNB", parameter_name), size=8, y=1.08, fontfamily="serif")
+    plt.title("%s %s" % (name, parameter_name), size=8, y=1.08, fontfamily="serif")
     plt.tight_layout()
 
     # Draw labels
@@ -183,8 +184,8 @@ def plot_radars(
 
     ax.set_xticklabels([])
     ax.set_yticklabels([])
-
-    plt.savefig("plots/experiment4/radars/4_%s_%s_%s.png" % (what, classifier_name, parameter_name), bbox_inches='tight', dpi=250)
+    print("TUTAJ:  ",parameter_name)
+    plt.savefig("plots/experiment4/radars/4_%s_%s.eps" % (what, classifier_name), bbox_inches='tight', dpi=250)
     plt.close()
 
 for j, name in enumerate(names):
@@ -210,4 +211,4 @@ for j, name in enumerate(names):
         table.append([metric] + ["%.3f" % score for score in mean_scores])
 
     print(tabulate(table, headers=header, tablefmt="latex_booktabs"))
-    plot_radars(methods, metrics, table, "GNB", " ", name)
+    plot_radars(methods, metrics, table, "GNB", "", name)
