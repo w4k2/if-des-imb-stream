@@ -19,8 +19,8 @@ methods = ["REA", "OUSE", "KMC", "CDS", "NIE", "ROS-KNORAU2", "CNN-KNORAU2", "RO
 metrics = ["Balanced accuracy", "G-mean", "f1 score", "precision", "recall", "specificity"]
 clfs = ["GNB"]
 
-# names = ["covtypeNorm-1-2vsAll", "poker-lsn-1-2vsAll"]
-names = ["covtypeNorm-1-2vsAll"]
+names = ["covtypeNorm-1-2vsAll", "poker-lsn-1-2vsAll"]
+# names = ["covtypeNorm-1-2vsAll"]
 
 def plot_runs(
     clfs, metrics, selected_scores, methods, mean_scores, what
