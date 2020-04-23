@@ -73,7 +73,7 @@ def plot_runs(
     plt.ylabel("score", fontfamily="serif", fontsize=6)
     plt.xlabel("chunks", fontfamily="serif", fontsize=6)
     plt.tight_layout()
-    plt.savefig("plots/experiment4/runs/4_%s_%s_%s.eps" % (what, "GNB", metrics[i]), bbox_inches='tight', dpi=250)
+    plt.savefig("plots/experiment4/runs/4_%s_%s_%s.eps" % (what, clfs[0], metrics[i]), bbox_inches='tight', dpi=250)
     plt.close()
 
 def plot_radars(
@@ -138,7 +138,7 @@ def plot_radars(
     plt.grid(ls=":", c=(0.7, 0.7, 0.7))
 
     # Add a title
-    plt.title("%s %s" % (name, parameter_name), size=8, y=1.08, fontfamily="serif")
+    plt.title("%s %s %s" % (name, parameter_name, clfs[0]), size=8, y=1.08, fontfamily="serif")
     plt.tight_layout()
 
     # Draw labels
@@ -194,7 +194,7 @@ def plot_radars(
 
 for j, name in enumerate(names):
     print("\n---\n--- %s\n---\n" % (name))
-    scores = np.load("results/experiment4_HT_2/%s.npy" % (name))
+    scores = np.load("results/experiment4_%s_2/%s.npy" % (clfs[0], name))
     if clfs[0] == "GNB":
         scores = np.delete(scores, 3, 0)
     # print(scores.shape)
@@ -218,4 +218,4 @@ for j, name in enumerate(names):
         table.append([metric] + ["%.3f" % score for score in mean_scores])
 
     print(tabulate(table, headers=header, tablefmt="latex_booktabs"))
-    plot_radars(methods, metrics, table, "GNB", "", name)
+    plot_radars(methods, metrics, table, clfs[0], "", name)

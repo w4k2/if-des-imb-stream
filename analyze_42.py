@@ -17,10 +17,11 @@ n_chunks = [265, 360]
 
 methods = ["REA", "OUSE", "KMC", "CDS", "NIE", "ROS-KNORAU2", "CNN-KNORAU2", "ROS-KNORAE2", "CNN-KNORAE2"]
 metrics = ["Balanced accuracy", "G-mean", "f1 score", "precision", "recall", "specificity"]
-clfs = ["GNB"]
+# clfs = ["GNB"]
+clfs = ["HT"]
 
-# names = ["covtypeNorm-1-2vsAll", "poker-lsn-1-2vsAll"]
-names = ["poker-lsn-1-2vsAll"]
+names = ["covtypeNorm-1-2vsAll", "poker-lsn-1-2vsAll"]
+# names = ["poker-lsn-1-2vsAll"]
 
 def plot_runs(
     clfs, metrics, selected_scores, methods, mean_scores, what
@@ -69,7 +70,7 @@ def plot_runs(
     plt.ylabel("score", fontfamily="serif", fontsize=6)
     plt.xlabel("chunks", fontfamily="serif", fontsize=6)
     plt.tight_layout()
-    plt.savefig("plots/experiment4/runs/42_%s_%s_%s.eps" % (what, "GNB", metrics[i]), bbox_inches='tight', dpi=250)
+    plt.savefig("plots/experiment4/runs/42_%s_%s_%s.eps" % (what, clfs[0], metrics[i]), bbox_inches='tight', dpi=250)
     plt.close()
 
 def plot_radars(
@@ -134,7 +135,7 @@ def plot_radars(
     plt.grid(ls=":", c=(0.7, 0.7, 0.7))
 
     # Add a title
-    plt.title("%s %s" % (name, parameter_name), size=8, y=1.08, fontfamily="serif")
+    plt.title("%s %s %s" % (name, parameter_name, clfs[0]), size=8, y=1.08, fontfamily="serif")
     plt.tight_layout()
 
     # Draw labels
@@ -190,7 +191,7 @@ def plot_radars(
 
 for j, name in enumerate(names):
     print("\n---\n--- %s\n---\n" % (name))
-    scores = np.load("results/experiment4_HT_3/%s.npy" % (name))
+    scores = np.load("results/experiment4_%s_3/%s.npy" % (clfs[0], name))
 
     for i, metric in enumerate(metrics):
         print("\n---\n--- %s\n---\n" % (metric))
@@ -211,4 +212,4 @@ for j, name in enumerate(names):
         table.append([metric] + ["%.3f" % score for score in mean_scores])
 
     print(tabulate(table, headers=header, tablefmt="latex_booktabs"))
-    plot_radars(methods, metrics, table, "GNB", "", name)
+    plot_radars(methods, metrics, table, clfs[0], "", name)
