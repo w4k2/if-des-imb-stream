@@ -26,7 +26,7 @@ print(len(streams))
 ob = OnlineBagging(n_estimators=20, base_estimator=GaussianNB())
 oob = OOB(n_estimators=20, base_estimator=GaussianNB())
 uob = UOB(n_estimators=20, base_estimator=GaussianNB())
-sea = SEA(base_estimator=StratifiedBagging(base_estimator=GaussianNB(
+# sea = SEA(base_estimator=StratifiedBagging(base_estimator=GaussianNB(
 ), random_state=42))
 ros_knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=GaussianNB(
 ), random_state=42, oversampler="ROS"), oversampled="ROS", des="KNORAU2")
@@ -36,7 +36,7 @@ ros_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=GaussianNB(
 ), random_state=42, oversampler="ROS"), oversampled="ROS", des="KNORAE2")
 cnn_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=GaussianNB(), random_state=42, oversampler = "CNN"), oversampled="CNN" ,des="KNORAE2")
 
-clfs = (ob, oob, uob, sea, ros_knorau2, cnn_knorau2, ros_knorae2, cnn_knorae2)
+clfs = (ob, oob, uob, ros_knorau2, cnn_knorau2, ros_knorae2, cnn_knorae2)
 
 # Define worker
 def worker(i, stream_n):

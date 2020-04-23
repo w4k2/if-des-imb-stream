@@ -19,8 +19,8 @@ methods = ["REA", "OUSE", "KMC", "CDS", "NIE", "ROS-KNORAU2", "CNN-KNORAU2", "RO
 metrics = ["Balanced accuracy", "G-mean", "f1 score", "precision", "recall", "specificity"]
 clfs = ["GNB"]
 
-names = ["covtypeNorm-1-2vsAll", "poker-lsn-1-2vsAll"]
-# names = ["covtypeNorm-1-2vsAll"]
+# names = ["covtypeNorm-1-2vsAll", "poker-lsn-1-2vsAll"]
+names = ["poker-lsn-1-2vsAll"]
 
 def plot_runs(
     clfs, metrics, selected_scores, methods, mean_scores, what
@@ -190,7 +190,7 @@ def plot_radars(
 
 for j, name in enumerate(names):
     print("\n---\n--- %s\n---\n" % (name))
-    scores = np.load("results/experiment4_GNB_3/%s.npy" % (name))
+    scores = np.load("results/experiment4_HT_3/%s.npy" % (name))
 
     for i, metric in enumerate(metrics):
         print("\n---\n--- %s\n---\n" % (metric))

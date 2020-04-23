@@ -10,14 +10,18 @@ from matplotlib import rcParams
 
 # Set plot params
 rcParams["font.family"] = "monospace"
-colors = [(0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0.9), (0, 0, 0.9), (0.9, 0, 0), (0.9, 0, 0)]
-ls = ["-", "--", ":", "-.", "-", "--", "-", "--"]
+# colors = [(0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0.9), (0, 0, 0.9), (0.9, 0, 0), (0.9, 0, 0)]
+# ls = ["-", "--", ":", "-.", "-", "--", "-", "--"]
+colors = [(0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0.9), (0, 0, 0.9), (0.9, 0, 0), (0.9, 0, 0)]
+ls = ["-", "--", ":", "-", "--", "-", "--"]
 lw = [1, 1, 1, 1, 1, 1, 1, 1]
 n_chunks = [265, 360]
 
-methods = ["OB", "OOB", "UOB", "SEA", "ROS-KNORAU2", "CNN-KNORAU2", "ROS-KNORAE2", "CNN-KNORAE2"]
+# methods = ["OB", "OOB", "UOB", "SEA", "ROS-KNORAU2", "CNN-KNORAU2", "ROS-KNORAE2", "CNN-KNORAE2"]
+methods = ["OB", "OOB", "UOB", "ROS-KNORAU2", "CNN-KNORAU2", "ROS-KNORAE2", "CNN-KNORAE2"]
 metrics = ["Balanced accuracy", "G-mean", "f1 score", "precision", "recall", "specificity"]
-clfs = ["GNB"]
+# clfs = ["GNB"]
+clfs = ["HT"]
 
 names = ["covtypeNorm-1-2vsAll", "poker-lsn-1-2vsAll"]
 # names = ["covtypeNorm-1-2vsAll"]
@@ -190,8 +194,11 @@ def plot_radars(
 
 for j, name in enumerate(names):
     print("\n---\n--- %s\n---\n" % (name))
-    scores = np.load("results/experiment4_GNB_2/%s.npy" % (name))
-
+    scores = np.load("results/experiment4_HT_2/%s.npy" % (name))
+    if clfs[0] == "GNB":
+        scores = np.delete(scores, 3, 0)
+    # print(scores.shape)
+    # exit()
     for i, metric in enumerate(metrics):
         print("\n---\n--- %s\n---\n" % (metric))
         # METHOD, CHUNK, METRYKA
