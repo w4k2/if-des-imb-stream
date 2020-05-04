@@ -48,7 +48,7 @@ def moa_streams():
 
 def toystreams(random_state):
     # Variables
-    distributions = [[0.95, 0.05], [0.90, 0.10]]
+    distributions = [[0.97, 0.03]]
     label_noises = [
         0.01,
         0.03,
