@@ -32,18 +32,12 @@ streams = h.toystreams(random_state)
 
 print(len(streams))
 
-none_knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
-), random_state=42, oversampler="None"), oversampled="None", des="KNORAU2")
-ros_knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
-), random_state=42, oversampler="ROS"), oversampled="ROS", des="KNORAU2")
-b2_knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
-), random_state=42, oversampler="B2"), oversampled="B2", des="KNORAU2")
-none_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
-), random_state=42, oversampler="None"), oversampled="None", des="KNORAE2")
-ros_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
-), random_state=42, oversampler="ROS"), oversampled="ROS", des="KNORAE2")
-b2_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
-), random_state=42, oversampler="B2"), oversampled="B2", des="KNORAE2")
+none_knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(split_criterion='hellinger'), random_state=42, oversampler="None"), oversampled="None", des="KNORAU2")
+ros_knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(split_criterion='hellinger'), random_state=42, oversampler="ROS"), oversampled="ROS", des="KNORAU2")
+b2_knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(split_criterion='hellinger'), random_state=42, oversampler="B2"), oversampled="B2", des="KNORAU2")
+none_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(split_criterion='hellinger'), random_state=42, oversampler="None"), oversampled="None", des="KNORAE2")
+ros_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(split_criterion='hellinger'), random_state=42, oversampler="ROS"), oversampled="ROS", des="KNORAE2")
+b2_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(split_criterion='hellinger'), random_state=42, oversampler="B2"), oversampled="B2", des="KNORAE2")
 
 clfs = (none_knorau2, ros_knorau2, b2_knorau2,
         none_knorae2, ros_knorae2, b2_knorae2)

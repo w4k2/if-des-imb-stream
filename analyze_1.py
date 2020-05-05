@@ -25,7 +25,8 @@ label_noises = [
     "0.05"
 ]
 ln = [a.replace('.','-') for a in label_noises]
-distributions = ["0.05", "0.10"]
+# distributions = ["0.05", "0.10"]
+distributions = ["0.03"]
 dist = [a.replace('.','-') for a in distributions]
 drifts = ["gradual", "incremental", "sudden"]
 metrics = ["Balanced accuracy", "G-mean", "f1 score", "precision", "recall", "specificity"]
@@ -243,7 +244,9 @@ for j, clf in enumerate(clfs):
         # Drift
         # drifttype, DIST, LABELNOISE, METHOD, CHUNK
         reduced_scores = np.mean(sub_scores, axis=1)
+        scores_for_metrics = reduced_scores
         reduced_scores = np.mean(reduced_scores, axis=1)
+
         table = []
         header = ["Drift"] + methods
         for k, drift in enumerate(drifts):
@@ -255,6 +258,10 @@ for j, clf in enumerate(clfs):
             plot_runs(clfs, metrics, selected_scores, methods, mean_scores, drifts, "drift_type")
 
             # Drift evaluation
+            metrics_scores = scores_for_metrics[k]
+            aa = []
+            bb = []
+            # for j in range(scores_for_metrics.shape[0]):
             print("#######  %s #######" % (drift))
             print(methods)
             a = []
@@ -273,6 +280,13 @@ for j, clf in enumerate(clfs):
                 # print(methods[i])
                 # print(max_performance_loss)
                 # print(recovery_lengths)
+
+                # aa.append(a)
+                # bb.append(b)
+            # aa = np.array(aa)
+            # bb = np.array(bb)
+            # aaa = np.mean(aa, axis=0))
+            # bbb = np.mean(bb, axis=0)
             print(" & ".join(map(str, a)))
             print(" & ".join(map(str, b)))
         # print(table)

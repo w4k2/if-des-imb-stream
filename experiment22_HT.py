@@ -32,18 +32,12 @@ streams = h.toystreams(random_state)
 
 print(len(streams))
 
-none_knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
-), random_state=42, oversampler="None"), oversampled="None", des="KNORAU2")
-rus_knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
-), random_state=42, oversampler="RUS"), oversampled="RUS", des="KNORAU2")
-cnn_knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
-), random_state=42, oversampler="CNN"), oversampled="CNN", des="KNORAU2")
-none_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
-), random_state=42, oversampler="None"), oversampled="None", des="KNORAE2")
-rus_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
-), random_state=42, oversampler="RUS"), oversampled="RUS", des="KNORAE2")
-cnn_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(
-), random_state=42, oversampler="CNN"), oversampled="CNN", des="KNORAE2")
+none_knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(split_criterion='hellinger'), random_state=42, oversampler="None"), oversampled="None", des="KNORAU2")
+rus_knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(split_criterion='hellinger'), random_state=42, oversampler="RUS"), oversampled="RUS", des="KNORAU2")
+cnn_knorau2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(split_criterion='hellinger'), random_state=42, oversampler="CNN"), oversampled="CNN", des="KNORAU2")
+none_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(split_criterion='hellinger'), random_state=42, oversampler="None"), oversampled="None", des="KNORAE2")
+rus_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(split_criterion='hellinger'), random_state=42, oversampler="RUS"), oversampled="RUS", des="KNORAE2")
+cnn_knorae2 = SEA(base_estimator=StratifiedBagging(base_estimator=HoeffdingTree(split_criterion='hellinger'), random_state=42, oversampler="CNN"), oversampled="CNN", des="KNORAE2")
 
 clfs = (none_knorau2, rus_knorau2, cnn_knorau2,
         none_knorae2, rus_knorae2, cnn_knorae2)
