@@ -8,7 +8,7 @@ from scipy.signal import medfilt
 import pandas as pd
 from math import pi
 from scipy.ndimage.filters import gaussian_filter1d
-
+from scipy.signal import medfilt
 from matplotlib import rcParams
 
 # Set plot params
@@ -46,6 +46,7 @@ def plot_runs(
     ):
         label = "\n{0:.3f}".format(mean)
         val = gaussian_filter1d(value, sigma=3, mode="nearest")
+        # val = medfilt(value, 3)
 
         # plt.plot(value, label=label, c=colors[z], ls=ls[z])
 
@@ -257,41 +258,41 @@ for j, clf in enumerate(clfs):
 
             plot_runs(clfs, metrics, selected_scores, methods, mean_scores, drifts, "drift_type")
 
-            # Drift evaluation
-            metrics_scores = scores_for_metrics[k]
-            aa = []
-            bb = []
-            # for j in range(scores_for_metrics.shape[0]):
-            print("#######  %s #######" % (drift))
-            print(methods)
-            a = []
-            b = []
-            for i in range(selected_scores.shape[0]):
-                from csm import DriftEvaluator
-                eval_ready_scores = selected_scores[i].reshape(1,199,1)
-                drift_evaluator = DriftEvaluator(scores=eval_ready_scores, drift_indices=[99])
-
-                max_performance_loss = drift_evaluator.get_max_performance_loss()
-                recovery_lengths = drift_evaluator.get_recovery_lengths()
-                # print(max_performance_loss)
-                # print(recovery_lengths)
-                a.append(round(max_performance_loss[0],4))
-                b.append(round(recovery_lengths[0],4))
-                # print(methods[i])
-                # print(max_performance_loss)
-                # print(recovery_lengths)
-
-                # aa.append(a)
-                # bb.append(b)
-            # aa = np.array(aa)
-            # bb = np.array(bb)
-            # aaa = np.mean(aa, axis=0))
-            # bbb = np.mean(bb, axis=0)
-            print(" & ".join(map(str, a)))
-            print(" & ".join(map(str, b)))
-        # print(table)
-        # print(tabulate(table, headers=header))
-        # print("")
+        #     # Drift evaluation
+        #     metrics_scores = scores_for_metrics[k]
+        #     aa = []
+        #     bb = []
+        #     # for j in range(scores_for_metrics.shape[0]):
+        #     print("#######  %s #######" % (drift))
+        #     print(methods)
+        #     a = []
+        #     b = []
+        #     for i in range(selected_scores.shape[0]):
+        #         from csm import DriftEvaluator
+        #         eval_ready_scores = selected_scores[i].reshape(1,199,1)
+        #         drift_evaluator = DriftEvaluator(scores=eval_ready_scores, drift_indices=[99])
+        #
+        #         max_performance_loss = drift_evaluator.get_max_performance_loss()
+        #         recovery_lengths = drift_evaluator.get_recovery_lengths()
+        #         # print(max_performance_loss)
+        #         # print(recovery_lengths)
+        #         a.append(round(max_performance_loss[0],4))
+        #         b.append(round(recovery_lengths[0],4))
+        #         # print(methods[i])
+        #         # print(max_performance_loss)
+        #         # print(recovery_lengths)
+        #
+        #         # aa.append(a)
+        #         # bb.append(b)
+        #     # aa = np.array(aa)
+        #     # bb = np.array(bb)
+        #     # aaa = np.mean(aa, axis=0))
+        #     # bbb = np.mean(bb, axis=0)
+        #     print(" & ".join(map(str, a)))
+        #     print(" & ".join(map(str, b)))
+        # # print(table)
+        # # print(tabulate(table, headers=header))
+        # # print("")
 
 # RADAR DIAGRAMS
 

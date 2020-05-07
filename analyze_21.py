@@ -29,7 +29,7 @@ label_noises = [
     "0.05"
 ]
 ln = [a.replace('.','-') for a in label_noises]
-distributions = ["0.05", "0.10"]
+distributions = ["0.05"]
 dist = [a.replace('.','-') for a in distributions]
 drifts = ["gradual", "incremental", "sudden"]
 metrics = ["Balanced accuracy", "G-mean", "f1 score", "precision", "recall", "specificity"]
@@ -49,7 +49,7 @@ def plot_runs(
     ):
         label = "\n{0:.3f}".format(mean)
         val = gaussian_filter1d(value, sigma=3, mode="nearest")
-
+        # val = value
         # plt.plot(value, label=label, c=colors[z], ls=ls[z])
 
         plt.plot(val, label=label, c=colors[z], ls=ls[z], lw=lw[z])
@@ -84,7 +84,7 @@ def plot_runs(
     plt.ylabel(metrics[i], fontfamily="serif", fontsize=6)
     plt.xlabel("chunks", fontfamily="serif", fontsize=6)
     plt.tight_layout()
-    plt.savefig("plots/experiment21/runs/%s/21_%s_%s_%s.eps" % (what, clfs[j], metrics[i], dependency[k]), bbox_inches='tight', dpi=250, pad_inches=0.0)
+    plt.savefig("plots/experiment21/runs/%s/21_%s_%s_%s.png" % (what, clfs[j], metrics[i], dependency[k]), bbox_inches='tight', dpi=250, pad_inches=0.0)
     plt.close()
 
 def plot_radars(

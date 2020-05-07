@@ -39,7 +39,7 @@ class DriftEvaluator:
             score_idx = idx+1
             while self.__scores[score_idx] < 0.95*self.__median_scores[median_score_idx]:
                 score_idx += 1
-            recovery_lengths.append((score_idx-idx)/1000) # divided by number of chunks
+            recovery_lengths.append((score_idx-idx)/200) # divided by number of chunks
             median_score_idx += 1
 
         return recovery_lengths
@@ -53,7 +53,7 @@ class DriftEvaluator:
         for idx in self.__drift_indices:
             min_score = min(self.__scores[idx-10:idx+10])
             min_stream_score = min(self.__median_scores[stream_a_idx], self.__median_scores[stream_b_idx])
-            loss = (min_stream_score - min_score) / min_stream_score
+            loss = (min_stream_score - min_score) / max(min_stream_score, 0.0000000000000000000000000000000000000001)
             performance_loss.append(loss)
             stream_a_idx += 1
             stream_b_idx += 1
