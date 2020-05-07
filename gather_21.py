@@ -5,7 +5,7 @@ import numpy as np
 clfs = ["GNB", "HT", "KNN", "SVM"]
 methods = ["NON-KNORAU2", "ROS-KNORAU2", "B2-KNORAU2", "NON-KNORAE2", "ROS-KNORAE2", "B2-KNORAE2"]
 random_states = [1994, 1410]
-distributions = [[0.95, 0.05]]
+distributions = [[0.97, 0.03]]
 label_noises = [
     0.01,
     0.03,
