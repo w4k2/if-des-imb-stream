@@ -105,8 +105,11 @@ class StratifiedBagging(BaseEnsemble, ClassifierMixin):
                     train_X, train_y = cnn.fit_resample(train_X, train_y)
                 except:
                     pass
-
-            estimator.fit(train_X, train_y)
+            try:
+                estimator.fit(train_X, train_y)
+            except:
+                print("Padlem, więc biorę %i sasiadow" % train_X.shape[0])
+                self.estimators_[n] = KNeighborsClassifier(weights='distance', n_neighbors=train_X.shape[0]).fit(train_X, train_y)
 
         # Return the classifier
         return self
