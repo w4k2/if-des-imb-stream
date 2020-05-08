@@ -29,7 +29,7 @@ label_noises = [
     "0.05"
 ]
 ln = [a.replace('.','-') for a in label_noises]
-distributions = ["0.05", "0.10"]
+distributions = ["0.03"]
 dist = [a.replace('.','-') for a in distributions]
 drifts = ["gradual", "incremental", "sudden"]
 metrics = ["Balanced accuracy", "G-mean", "f1 score", "precision", "recall", "specificity"]

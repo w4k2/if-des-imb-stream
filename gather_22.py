@@ -5,7 +5,7 @@ import numpy as np
 clfs = ["GNB", "HT", "KNN", "SVM"]
 methods = ["NON-KNORAU2", "RUS-KNORAU2", "CNN-KNORAU2", "NON-KNORAE2", "RUS-KNORAE2", "CNN-KNORAE2"]
 random_states = [1994, 1410]
-distributions = [[0.95, 0.05], [0.9, 0.1]]
+distributions = [[0.97, 0.03]]
 label_noises = [
     0.01,
     0.03,
@@ -65,6 +65,8 @@ for i, clf in enumerate(clfs):
                             "results/experiment22_%s/%s.npy" % (clf, stream)
                         )
                         scores[i, j, k, l, m] = results
+scores_metrics_22 = scores
+np.save("scores_metrics_22", scores_metrics_22)
 scores = np.mean(scores, axis=1)
 np.save("scores_22", scores)
 print(scores, scores.shape)
