@@ -97,11 +97,11 @@ class SEA(ClassifierMixin, BaseEnsemble):
             rus = RandomUnderSampler(random_state=42)
             try:
                 self.dsel_X_, self.dsel_y_ = rus.fit_resample(self.X_, self.y_)
-                _, ys_counter = np.unique(self.dsel_y_, return_counts=True)
+                # _, ys_counter = np.unique(self.dsel_y_, return_counts=True)
 
-                if np.sum(ys_counter) < 9:
-                    rus = RandomUnderSampler(random_state=42, sampling_strategy={0:(9-ys_counter[1]), 1:ys_counter[1]})
-                    self.dsel_X_, self.dsel_y_ = rus.fit_resample(self.X_, self.y_)
+                # if np.sum(ys_counter) < 9:
+                    # rus = RandomUnderSampler(random_state=42, sampling_strategy={0:(9-ys_counter[1]), 1:ys_counter[1]})
+                    # self.dsel_X_, self.dsel_y_ = rus.fit_resample(self.X_, self.y_)
             except:
                 self.dsel_X_, self.dsel_y_ = self.X_, self.y_
         elif self.oversampled == "CNN":

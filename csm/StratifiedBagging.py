@@ -88,15 +88,15 @@ class StratifiedBagging(BaseEnsemble, ClassifierMixin):
             elif self.oversampler == "RUS":
                 rus = RandomUnderSampler(random_state=self.random_state+(n*2))
                 try:
-                    train_Xs, train_ys = rus.fit_resample(train_X, train_y)
-                    _, ys_counter = np.unique(train_ys, return_counts=True)
+                    train_X, train_y = rus.fit_resample(train_X, train_y)
+                    # _, ys_counter = np.unique(train_ys, return_counts=True)
 
-                    if np.sum(ys_counter) < 9:
-                        rus = RandomUnderSampler(random_state=self.random_state+(n*2), sampling_strategy={0:(9-ys_counter[1]), 1:ys_counter[1]})
-                        train_Xs, train_ys = rus.fit_resample(train_X, train_y)
-                        train_X, train_y = train_Xs, train_ys
-                    else:
-                        train_X, train_y = train_Xs, train_ys
+                    # if np.sum(ys_counter) < 9:
+                        # rus = RandomUnderSampler(random_state=self.random_state+(n*2), sampling_strategy={0:(9-ys_counter[1]), 1:ys_counter[1]})
+                        # train_Xs, train_ys = rus.fit_resample(train_X, train_y)
+                        # train_X, train_y = train_Xs, train_ys
+                    # else:
+                        # train_X, train_y = train_Xs, train_ys
                 except:
                     pass
             elif self.oversampler == "CNN":

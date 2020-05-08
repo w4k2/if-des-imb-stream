@@ -49,13 +49,21 @@ class KNORAU(BaseEstimator, ClassifierMixin):
         return np.array([member_clf.predict(X) for member_clf in self.ensemble]).T
 
     def predict(self, X):
-        self.estimate_competence(X)
-        em = self.ensemble_matrix(X)
-        predict = []
+        if self.shape[0] >= 7:
+            self.estimate_competence(X)
+            em = self.ensemble_matrix(X)
+            predict = []
 
-        for i, row in enumerate(em):
-            decision = np.bincount(row, weights=self.competences[i])
-            predict.append(np.argmax(decision))
+            for i, row in enumerate(em):
+                decision = np.bincount(row, weights=self.competences[i])
+                predict.append(np.argmax(decision))
+        else:
+            em = self.ensemble_matrix(X)
+            predict = []
+
+            for i, row in enumerate(em):
+                decision = np.bincount(row)
+                predict.append(np.argmax(decision))
 
         return np.array(predict)
 
