@@ -1,4 +1,4 @@
-IoT article extension for Elsevier Knowledge-Based Systems Journal
+IoT article extension for Elsevier Information Fusion Journal submission
 
 ## Set-up
 
