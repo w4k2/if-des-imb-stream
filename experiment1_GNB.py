@@ -64,7 +64,7 @@ def worker(i, stream_n):
 
     results = eval.scores
 
-    np.save("results/experiment1_GNB/%s" % stream, results)
+    # np.save("results/experiment1_GNB/%s" % stream, results)
 
 
 jobs = []
